@@ -113,10 +113,10 @@ const Graph = () => {
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
-  // Much larger radius for fixed positions
-  const radius = 80;
-  const angleStep = (2 * Math.PI) / 3;
-  let currentAngle = -Math.PI / 2;
+  // Constants for node positioning
+  const RADIUS = 80;
+  const START_ANGLE = -Math.PI / 2;
+  const ANGLE_STEP = (2 * Math.PI) / 4;
 
   const allNodesAndLinks = {
     nodes: [
@@ -126,78 +126,167 @@ const Graph = () => {
         group: "center",
         size: dimensions.width < 768 ? 15 : 20,
         level: 0,
-        fx: 0, // Fixed position
+        description: "Building technology that elevates the human spirit.",
+        fx: 0,
         fy: 0,
       },
       // Level 1 nodes (always visible)
       {
-        id: "career",
-        label: ["Career", "Journey"],
+        id: "vision",
+        label: ["Vision"],
         group: "primary",
         size: dimensions.width < 768 ? 12 : 15,
-        description: "My journey through tech and finance",
+        description:
+          "Technology should enrich the best parts of us—our creativity, connection, and fulfillment. I strive for a future where people feel more alive and connected than ever.\n\nAI and LLMs are creating a new abstraction layer for work—one that can expand what's possible for humanity. I want to help shape this transformation.",
         level: 1,
-        fx: Math.cos(currentAngle) * radius, // Fixed position
-        fy: Math.sin(currentAngle) * radius,
-      },
-      {
-        id: "projects",
-        label: ["Projects"],
-        group: "primary",
-        size: dimensions.width < 768 ? 12 : 15,
-        description: "Key projects and achievements",
-        level: 1,
-        fx: Math.cos(currentAngle + angleStep) * radius, // Fixed position
-        fy: Math.sin(currentAngle + angleStep) * radius,
+        fx: Math.cos(START_ANGLE) * RADIUS,
+        fy: Math.sin(START_ANGLE) * RADIUS,
       },
       {
         id: "about",
         label: ["About", "Me"],
         group: "primary",
         size: dimensions.width < 768 ? 12 : 15,
-        description: "Background and interests",
+        description:
+          "I've always been drawn to how technology shapes us and how we shape technology. My work explores this relationship across disciplines—technical, psychological, moral, and aesthetic.\n\nI believe designing a better future requires understanding all these dimensions.",
         level: 1,
-        fx: Math.cos(currentAngle + 2 * angleStep) * radius, // Fixed position
-        fy: Math.sin(currentAngle + 2 * angleStep) * radius,
+        fx: Math.cos(START_ANGLE + ANGLE_STEP) * RADIUS,
+        fy: Math.sin(START_ANGLE + ANGLE_STEP) * RADIUS,
       },
-      // Level 2 nodes (hidden by default)
+      {
+        id: "projects",
+        label: ["Projects"],
+        group: "primary",
+        size: dimensions.width < 768 ? 12 : 15,
+        description:
+          "All of my work deals with our relationship to technology—how we shape it and how it shapes us. Each project explores different aspects of human-technology interaction.",
+        level: 1,
+        fx: Math.cos(START_ANGLE + 2 * ANGLE_STEP) * RADIUS,
+        fy: Math.sin(START_ANGLE + 2 * ANGLE_STEP) * RADIUS,
+      },
+      {
+        id: "career",
+        label: ["Career", "Journey"],
+        group: "primary",
+        size: dimensions.width < 768 ? 12 : 15,
+        description:
+          "My journey from finance to software engineering is a story of evolution and learning. Each role has shaped my understanding of how technology can serve human flourishing.",
+        level: 1,
+        fx: Math.cos(START_ANGLE + 3 * ANGLE_STEP) * RADIUS,
+        fy: Math.sin(START_ANGLE + 3 * ANGLE_STEP) * RADIUS,
+      },
+      // Level 2 nodes
+      // Vision children
+      {
+        id: "philosophy",
+        label: ["Philosophy"],
+        group: "vision",
+        size: dimensions.width < 768 ? 10 : 10,
+        description:
+          "I believe technology must do two things to be good:\n\n1. It must serve a good purpose.\n2. It must make a person better by virtue of having used it.\n\nTechnology shouldn't treat humanness as a limitation to overcome. Instead, it should enrich the best parts of us.",
+        level: 2,
+        parent: "vision",
+      },
+      {
+        id: "future",
+        label: ["Future Focus"],
+        group: "vision",
+        size: dimensions.width < 768 ? 10 : 10,
+        description:
+          "Right now, I'm particularly excited about:\n\n• AI-powered tools that augment human capabilities\n• The future of work & intelligence interfaces\n\nI want to help shape a future where technology enriches humanness, not erodes it.",
+        level: 2,
+        parent: "vision",
+      },
+      // About children
+      {
+        id: "background",
+        label: ["Background"],
+        group: "about",
+        size: dimensions.width < 768 ? 10 : 10,
+        description:
+          "Born in the Philippines, I immigrated to the U.S. at age 8. From a young age, I worked multiple jobs, commuted 12 hours a week, and balanced a double major while volunteering.\n\nI was the first in my family to graduate from college, despite being the second youngest of four. I studied Financial Math & Statistics, started in finance, and then pivoted into software engineering.",
+        level: 2,
+        parent: "about",
+      },
+      {
+        id: "philosophy-work",
+        label: ["Work Philosophy"],
+        group: "about",
+        size: dimensions.width < 768 ? 10 : 10,
+        description:
+          "I don't take work for granted. Having grown up seeing how limited opportunity can be, I view work through a lens of gratitude—as a way to apply my full potential and help others flourish.\n\nMy goal isn't just to build things. It's to build things that help people feel more alive, connected, creative, and fulfilled than ever.",
+        level: 2,
+        parent: "about",
+      },
+      // Projects children
+      {
+        id: "neopom",
+        label: ["Neopom"],
+        group: "projects",
+        size: dimensions.width < 768 ? 10 : 10,
+        description:
+          "A productivity app with 200,000+ users, built in 4 days a year after I learned to code.\n\nA user once told me it helped her get through college. That remains my proudest accomplishment.",
+        level: 2,
+        parent: "projects",
+      },
+      {
+        id: "browser",
+        label: ["Web Browser"],
+        group: "projects",
+        size: dimensions.width < 768 ? 10 : 10,
+        description:
+          "Built a working web browser from scratch to deeply understand how the internet works.\n\nExplored rendering engines, networking, and systems programming to understand the fundamentals of web technology.",
+        level: 2,
+        parent: "projects",
+      },
+      // Career children
+      {
+        id: "finance",
+        label: ["Finance"],
+        group: "career",
+        size: dimensions.width < 768 ? 10 : 10,
+        description:
+          "Started in finance with roles at Kaiser Permanente as an actuary and Capital Group ($2.7T AUM) as a quantitative analyst.\n\nThis experience taught me the importance of rigorous analysis, but I realized I wanted to build things, not just analyze them.",
+        level: 2,
+        parent: "career",
+      },
       {
         id: "amazon",
         label: ["Amazon"],
         group: "career",
         size: dimensions.width < 768 ? 10 : 10,
-        description: "Led web infrastructure initiatives at Prime Gaming",
+        description:
+          "At Prime Gaming, I led the website redesign and prototyped the initial service for the personalization team.\n\nThis role taught me how to build and scale systems that impact millions of users.",
         level: 2,
         parent: "career",
       },
       {
         id: "notion",
-        label: "Notion",
+        label: ["Notion"],
         group: "career",
         size: dimensions.width < 768 ? 10 : 10,
-        description: "Product Engineer for 2.5 years",
-        level: 2,
-        parent: "career",
-      },
-      {
-        id: "capital",
-        label: "Capital Group",
-        group: "career",
-        size: dimensions.width < 768 ? 10 : 10,
-        description: "Quantitative Analyst managing $2.7T in assets",
+        description:
+          "Spent 2.5 years working on infrastructure and growth at Notion, helping shape how millions of people work and create.\n\nFocused on building tools that enhance human creativity and collaboration.",
         level: 2,
         parent: "career",
       },
     ],
     links: [
       // Level 1 links
+      { source: "stephanie", target: "vision", value: 3 },
       { source: "stephanie", target: "career", value: 3 },
       { source: "stephanie", target: "projects", value: 3 },
       { source: "stephanie", target: "about", value: 3 },
       // Level 2 links
+      { source: "vision", target: "philosophy", value: 2, level: 2 },
+      { source: "vision", target: "future", value: 2, level: 2 },
+      { source: "about", target: "background", value: 2, level: 2 },
+      { source: "about", target: "philosophy-work", value: 2, level: 2 },
+      { source: "projects", target: "neopom", value: 2, level: 2 },
+      { source: "projects", target: "browser", value: 2, level: 2 },
+      { source: "career", target: "finance", value: 2, level: 2 },
       { source: "career", target: "amazon", value: 2, level: 2 },
       { source: "career", target: "notion", value: 2, level: 2 },
-      { source: "career", target: "capital", value: 2, level: 2 },
     ],
   };
 
@@ -366,24 +455,38 @@ const Graph = () => {
   );
 
   return (
-    <div className="graph-container">
+    <div
+      className="graph-container"
+      style={{
+        display: "flex",
+        flexDirection: dimensions.width < 768 ? "column" : "row",
+        alignItems: "flex-start",
+        width: "100%",
+        minHeight: "100vh",
+        position: "relative",
+      }}
+    >
       <div
         className="info-panel"
         style={{
-          position: "fixed",
-          top: "200px",
-          left: "20px",
+          position: dimensions.width < 768 ? "relative" : "fixed",
+          top: dimensions.width < 768 ? "20px" : "200px",
+          left: dimensions.width < 768 ? "auto" : "20px",
+          margin: dimensions.width < 768 ? "0 20px 20px" : "0",
           zIndex: 10,
           display: "flex",
           flexDirection: "column",
-          width: "120px", // Slightly wider for better text layout
+          width: dimensions.width < 768 ? "auto" : "450px",
+          maxWidth: "calc(100% - 40px)",
           background: "rgba(255, 255, 255, 0.95)",
-          padding: "20px",
-          borderRadius: "12px",
+          padding: "24px",
+          borderRadius: "16px",
           boxShadow: "0 2px 20px rgba(0,0,0,0.06)",
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(0,0,0,0.03)",
           transition: "all 0.3s ease",
+          maxHeight: dimensions.width < 768 ? "none" : "70vh",
+          overflowY: dimensions.width < 768 ? "visible" : "auto",
         }}
       >
         <div
@@ -391,7 +494,7 @@ const Graph = () => {
           style={{
             display: "flex",
             gap: "8px",
-            marginBottom: 0,
+            marginBottom: "20px",
             width: "100%",
           }}
         >
@@ -449,51 +552,56 @@ const Graph = () => {
             className={`node-info ${dimensions.width < 768 ? "mobile" : ""}`}
             style={{
               width: "100%",
-              marginTop: "16px",
               opacity: 0.95,
               transition: "opacity 0.3s ease",
             }}
           >
             <h3
               style={{
-                margin: "0 0 8px 0",
+                margin: "0 0 12px 0",
                 color: "#222",
-                fontSize: "15px",
+                fontSize: "18px",
                 textAlign: "left",
                 fontFamily: "Inter, system-ui, sans-serif",
-                fontWeight: 500,
-                letterSpacing: "-0.01em",
+                fontWeight: 600,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.3,
               }}
             >
               {Array.isArray(selectedNode.label) ? selectedNode.label.join(" ") : selectedNode.label}
             </h3>
-            <p
+            <div
               style={{
-                margin: "0 0 12px 0",
-                color: "#555",
-                lineHeight: "1.5",
-                fontSize: "13px",
+                margin: "0 0 16px 0",
+                color: "#444",
+                lineHeight: "1.6",
+                fontSize: "15px",
                 textAlign: "left",
                 fontFamily: "Inter, system-ui, sans-serif",
                 letterSpacing: "-0.01em",
               }}
             >
-              {selectedNode.description}
-            </p>
+              {selectedNode.description.split("\n").map((paragraph, index) => (
+                <p key={index} style={{ marginBottom: "12px" }}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
             {selectedNode.level < 2 && !expandedNodes.has(selectedNode.id) && (
               <p
                 className="click-hint"
                 style={{
-                  margin: 0,
-                  color: "#888",
-                  fontSize: "12px",
+                  margin: "16px 0 0 0",
+                  color: "#666",
+                  fontSize: "13px",
                   textAlign: "left",
                   fontFamily: "Inter, system-ui, sans-serif",
                   letterSpacing: "0.02em",
                   opacity: 0.8,
+                  fontStyle: "italic",
                 }}
               >
-                Click to expand
+                Click to explore more
               </p>
             )}
           </div>
@@ -502,25 +610,56 @@ const Graph = () => {
             className="initial-sections"
             style={{
               width: "100%",
-              marginTop: "16px",
               opacity: 0.95,
               transition: "opacity 0.3s ease",
             }}
           >
-            <h3
+            <h2
               style={{
-                margin: "0 0 12px 0",
+                margin: "0 0 8px 0",
                 color: "#222",
-                fontSize: "15px",
+                fontSize: "24px",
                 textAlign: "left",
                 fontFamily: "Inter, system-ui, sans-serif",
-                fontWeight: 500,
+                fontWeight: 600,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.3,
+              }}
+            >
+              Stephanie Rodriguez
+            </h2>
+            <div
+              style={{
+                margin: "0 0 24px 0",
+                color: "#444",
+                lineHeight: "1.6",
+                fontSize: "15px",
+              }}
+            >
+              <p style={{ marginBottom: "16px" }}>
+                We're in an era of rapid technological change, where intelligence is now on tap. This shift can expand
+                human potential in ways never before possible—augmenting our powers, accelerating our goals, and
+                transforming our environments.
+              </p>
+              <p>
+                While I'm fascinated by technology, what ultimately matters to me is the conservation and elevation of
+                the human spirit.
+              </p>
+            </div>
+            <h3
+              style={{
+                margin: "0 0 16px 0",
+                color: "#222",
+                fontSize: "16px",
+                textAlign: "left",
+                fontFamily: "Inter, system-ui, sans-serif",
+                fontWeight: 600,
                 letterSpacing: "-0.01em",
               }}
             >
               Explore
             </h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {allNodesAndLinks.nodes
                 .filter((node) => node.level === 1)
                 .map((node) => (
@@ -531,12 +670,12 @@ const Graph = () => {
                       setExpandedNodes(new Set([node.id]));
                     }}
                     style={{
-                      padding: "10px 12px",
+                      padding: "16px",
                       width: "100%",
                       border: "1px solid rgba(0,0,0,0.08)",
-                      borderRadius: "8px",
+                      borderRadius: "12px",
                       background: "white",
-                      fontSize: "13px",
+                      fontSize: "16px",
                       textAlign: "left",
                       cursor: "pointer",
                       color: "#333",
@@ -544,109 +683,99 @@ const Graph = () => {
                       fontFamily: "Inter, system-ui, sans-serif",
                       letterSpacing: "-0.01em",
                       boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
                       ":hover": {
                         transform: "translateY(-1px)",
-                        boxShadow: "0 2px 4px rgba(0,0,0,0.06)",
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                         borderColor: "rgba(0,0,0,0.12)",
                       },
                     }}
                   >
-                    {Array.isArray(node.label) ? node.label.join(" ") : node.label}
+                    <span style={{ fontWeight: 600, fontSize: "16px" }}>
+                      {Array.isArray(node.label) ? node.label.join(" ") : node.label}
+                    </span>
+                    <span style={{ fontSize: "18px", opacity: 0.3 }}>→</span>
                   </button>
                 ))}
             </div>
           </div>
         )}
       </div>
-      <ForceGraph2D
-        graphData={graphData}
-        width={dimensions.width}
-        height={Math.min(dimensions.height * 0.9, 1200)}
-        nodeRelSize={dimensions.width < 768 ? 4 : 6}
-        nodeVal={(node) => {
-          const baseSize = node.size * (hoveredNode?.id === node.id ? 1.4 : 1);
-          // Add subtle pulse animation for selected node
-          if (selectedNode?.id === node.id) {
-            return baseSize * (1 + Math.sin(simulationTime * 0.004) * 0.1);
+      <div
+        className="graph-wrapper"
+        style={{
+          flex: 1,
+          marginLeft: dimensions.width < 768 ? 0 : "500px",
+          marginTop: dimensions.width < 768 ? 0 : "-200px",
+          width: dimensions.width < 768 ? "100%" : "calc(100vw - 500px)",
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          transition: "all 0.3s ease",
+        }}
+      >
+        <ForceGraph2D
+          graphData={graphData}
+          width={dimensions.width < 768 ? dimensions.width : dimensions.width - 500}
+          height={
+            dimensions.width < 768 ? Math.min(dimensions.height * 0.6, 800) : Math.min(dimensions.height * 0.9, 1200)
           }
-          return baseSize;
-        }}
-        nodeLabel={(node) => node.description || node.label}
-        linkWidth={(link) => {
-          const isHighlighted = highlightLinks.has(link.source.id + "-" + link.target.id);
-          if (isHighlighted) {
-            return 2 * (1 + Math.sin(simulationTime * 0.005) * 0.2);
-          }
-          return 1;
-        }}
-        linkDirectionalParticles={(link) => (highlightLinks.has(link.source.id + "-" + link.target.id) ? 4 : 0)}
-        linkDirectionalParticleSpeed={0.005}
-        linkColor={(link) => {
-          const isHighlighted = highlightLinks.has(link.source.id + "-" + link.target.id);
-          return isHighlighted ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.15)";
-        }}
-        cooldownTime={Infinity} // Prevent simulation from stopping
-        cooldownTicks={0} // Keep simulation running
-        d3AlphaDecay={0} // Prevent decay to keep movement
-        d3VelocityDecay={0.4} // Moderate velocity decay for smooth movement
-        d3Force={(d3) => {
-          // Enhanced forces for more natural movement
-          d3.force("charge")
-            .strength(-100) // Reduced strength for gentler repulsion
-            .distanceMax(200);
+          nodeRelSize={dimensions.width < 768 ? 4 : 6}
+          nodeVal={(node) => {
+            const baseSize = node.size * (hoveredNode?.id === node.id ? 1.4 : 1);
+            // Add subtle pulse animation for selected node
+            if (selectedNode?.id === node.id) {
+              return baseSize * (1 + Math.sin(simulationTime * 0.004) * 0.1);
+            }
+            return baseSize;
+          }}
+          nodeLabel={(node) => node.description || node.label}
+          linkWidth={(link) => {
+            const isHighlighted = highlightLinks.has(link.source.id + "-" + link.target.id);
+            if (isHighlighted) {
+              return 2 * (1 + Math.sin(simulationTime * 0.005) * 0.2);
+            }
+            return 1;
+          }}
+          linkDirectionalParticles={(link) => (highlightLinks.has(link.source.id + "-" + link.target.id) ? 4 : 0)}
+          linkDirectionalParticleSpeed={0.005}
+          linkColor={(link) => {
+            const isHighlighted = highlightLinks.has(link.source.id + "-" + link.target.id);
+            return isHighlighted ? "rgba(0,0,0,0.3)" : "rgba(0,0,0,0.15)";
+          }}
+          d3Force={(d3) => {
+            d3.force("charge").strength(-200);
+            d3.force("collision", d3.forceCollide(40));
+            d3.force("link").distance(80);
+            d3.force("center", null);
+          }}
+          onNodeHover={handleNodeHover}
+          onNodeClick={handleNodeClick}
+          nodeCanvasObject={(node, ctx) => {
+            const isHovered = hoveredNode?.id === node.id;
+            const fontSize =
+              dimensions.width < 768 ? (node.group === "center" ? 6 : 5) : node.group === "center" ? 7 : 5.5;
 
-          d3.force(
-            "collision",
-            d3.forceCollide(() => 70)
-          );
+            // Draw text
+            ctx.font = `${node.group === "center" ? "500" : "400"} ${fontSize}px Inter`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = isHovered ? "#000" : "#333";
 
-          // Add custom forces for continuous movement
-          d3.force("drift", (alpha) => {
-            graphData.nodes.forEach((node) => {
-              if (!node.fx && !node.fy) {
-                // Only apply to non-fixed nodes
-                const time = simulationTime * 0.001;
-                // Create very subtle circular motion
-                node.vx += Math.sin(time + node.index * 0.5) * alpha * 0.2;
-                node.vy += Math.cos(time + node.index * 0.5) * alpha * 0.2;
-              }
+            // Handle multi-line text
+            const lineHeight = fontSize * 1.4;
+            const lines = Array.isArray(node.label) ? node.label : [node.label];
+            const totalHeight = lines.length * lineHeight;
+
+            lines.forEach((line, i) => {
+              const y = node.y - totalHeight / 2 + i * lineHeight + lineHeight / 2;
+              ctx.fillText(line, node.x, y);
             });
-          });
-
-          d3.force("link")
-            .strength((link) => link.value * 0.08) // Reduced strength for more movement
-            .distance((link) => {
-              const baseDistance = 60 + link.value * 10;
-              // Add subtle oscillation to link distances
-              return baseDistance + Math.sin(simulationTime * 0.002) * 2;
-            });
-
-          d3.force("center", null);
-        }}
-        onNodeHover={handleNodeHover}
-        onNodeClick={handleNodeClick}
-        nodeCanvasObject={(node, ctx) => {
-          const isHovered = hoveredNode?.id === node.id;
-          const fontSize =
-            dimensions.width < 768 ? (node.group === "center" ? 6 : 5) : node.group === "center" ? 7 : 5.5;
-
-          // Draw text
-          ctx.font = `${node.group === "center" ? "500" : "400"} ${fontSize}px Inter`;
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillStyle = isHovered ? "#000" : "#333";
-
-          // Handle multi-line text
-          const lineHeight = fontSize * 1.4;
-          const lines = Array.isArray(node.label) ? node.label : [node.label];
-          const totalHeight = lines.length * lineHeight;
-
-          lines.forEach((line, i) => {
-            const y = node.y - totalHeight / 2 + i * lineHeight + lineHeight / 2;
-            ctx.fillText(line, node.x, y);
-          });
-        }}
-      />
+          }}
+        />
+      </div>
     </div>
   );
 };
