@@ -1,0 +1,46 @@
+---
+/** A home-page section: small label in a left rail on wide screens, content on the right. */
+interface Props {
+  id: string;
+  title: string;
+}
+
+const { id, title } = Astro.props;
+const headingId = `${id}-heading`;
+---
+
+<section id={id} class="section" aria-labelledby={headingId}>
+  <h2 id={headingId} class="section-title meta">{title}</h2>
+  <div class="section-body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    display: grid;
+    gap: var(--space-s);
+    padding-block: var(--space-xl) 0;
+  }
+
+  .section-title {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .section-body {
+    max-width: var(--measure);
+  }
+
+  @media (min-width: 52rem) {
+    .section {
+      grid-template-columns: 11rem minmax(0, 1fr);
+      gap: var(--space-l);
+    }
+
+    .section-title {
+      padding-top: 0.35em;
+    }
+  }
+</style>

@@ -1,0 +1,62 @@
+---
+import type { ContactLink } from "../data/site";
+
+interface Props {
+  links: ContactLink[];
+}
+
+const { links } = Astro.props;
+---
+
+<dl class="contact">
+  {
+    links.map((link) => (
+      <div class="row">
+        <dt class="meta">{link.label}</dt>
+        <dd>
+          {link.href ? <a href={link.href}>{link.handle ?? link.href}</a> : <span class="missing">Not added yet</span>}
+          {link.todo && (
+            <>
+              {" "}
+              <span class="todo">TODO</span>
+              <span class="note meta">{link.todo}</span>
+            </>
+          )}
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .row {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  @media (min-width: 34rem) {
+    .row {
+      grid-template-columns: 7rem minmax(0, 1fr);
+      align-items: baseline;
+    }
+  }
+
+  dd {
+    overflow-wrap: anywhere;
+  }
+
+  .missing {
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  .note {
+    display: block;
+    color: var(--todo);
+  }
+</style>

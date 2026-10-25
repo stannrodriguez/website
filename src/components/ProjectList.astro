@@ -1,0 +1,55 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<ol class="projects" role="list">
+  {
+    projects.map((project) => (
+      <li class="project">
+        <h3 class="project-title">
+          {project.title}
+          {project.todo && <span class="todo">TODO</span>}
+        </h3>
+        <p>{project.summary}</p>
+        {project.todo && <p class="project-todo meta">{project.todo}</p>}
+        <p class="meta">
+          {[project.year, ...project.tags].filter(Boolean).join(" · ")}
+          {project.links?.map((link) => (
+            <>
+              {" · "}
+              <a href={link.href}>{link.label}</a>
+            </>
+          ))}
+        </p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .projects {
+    display: grid;
+    gap: var(--space-l);
+    padding: 0;
+    list-style: none;
+  }
+
+  .project {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .project-title {
+    font-size: var(--step-1);
+  }
+
+  .project-todo {
+    color: var(--todo);
+  }
+</style>
