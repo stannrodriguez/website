@@ -13,11 +13,15 @@ interface Props {
   title?: string;
   description?: string;
   type?: "website" | "article";
+  /** For pages like 404 that shouldn't be indexed or have a canonical URL. */
+  noindex?: boolean;
 }
 
-const { title, description = site.description, type = "website" } = Astro.props;
+const { title, description = site.description, type = "website", noindex = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.title;
-const canonical = new URL(Astro.url.pathname, Astro.site);
+// Pages build as directories, so canonical URLs always end in a slash.
+const pathname = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = new URL(pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -27,7 +31,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     <link rel="icon" href={withBase("favicon.svg")} type="image/svg+xml" />
     <meta name="color-scheme" content="light dark" />
 

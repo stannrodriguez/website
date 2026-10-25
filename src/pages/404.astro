@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/url";
+---
+
+<BaseLayout title="Not found" noindex>
+  <section class="not-found">
+    <p class="meta">404</p>
+    <h1>That page doesn't exist.</h1>
+    <p>It may have moved when the site was rebuilt. <a href={withBase()}>Go to the home page</a>.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: var(--space-s);
+    max-width: var(--measure);
+    padding-top: var(--space-xl);
+  }
+
+  h1 {
+    font-size: var(--step-3);
+    font-weight: 500;
+  }
+</style>
