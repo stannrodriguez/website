@@ -1,10 +1,14 @@
 ---
 import ContactList from "../components/ContactList.astro";
+import NoteList from "../components/NoteList.astro";
 import ProjectList from "../components/ProjectList.astro";
 import Section from "../components/Section.astro";
 import { projects } from "../data/projects";
 import { career, contact } from "../data/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getNotes } from "../lib/notes";
+
+const notes = await getNotes();
 ---
 
 <BaseLayout>
@@ -65,6 +69,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <ProjectList projects={projects} />
   </Section>
 
+  <Section id="writing" title="Writing">
+    <NoteList notes={notes} />
+  </Section>
+
   <Section id="contact" title="Contact">
     <p class="contact-lede">
       If you're hiring for forward-deployed, applied AI, or product engineering work, or you just want to compare notes,
@@ -94,11 +102,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     font-size: var(--step-1);
     line-height: 1.5;
     color: var(--ink-muted);
-  }
-
-  .prose {
-    display: grid;
-    gap: var(--space-s);
   }
 
   .subhead {

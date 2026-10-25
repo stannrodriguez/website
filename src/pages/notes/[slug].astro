@@ -1,0 +1,64 @@
+---
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, getNotes, type Note } from "../../lib/notes";
+import { withBase } from "../../lib/url";
+
+export const getStaticPaths = (async () => {
+  const notes = await getNotes();
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  note: Note;
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<BaseLayout title={note.data.title} description={note.data.description} type="article">
+  <article class="note">
+    <header class="note-header">
+      <p class="meta">
+        <a href={`${withBase()}#writing`}>← Writing</a>
+      </p>
+      <h1>
+        {note.data.title}
+        {note.data.todo && <span class="todo">TODO</span>}
+      </h1>
+      <p class="meta">
+        <time datetime={note.data.date.toISOString()}>{formatDate(note.data.date)}</time>
+        {note.data.draft && " · draft"}
+      </p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .note {
+    max-width: var(--measure);
+    margin-inline: auto;
+    padding-top: var(--space-xl);
+  }
+
+  .note-header {
+    display: grid;
+    gap: var(--space-s);
+    margin-bottom: var(--space-l);
+  }
+
+  h1 {
+    font-size: var(--step-3);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .meta a {
+    text-decoration: none;
+  }
+</style>
