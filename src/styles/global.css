@@ -101,8 +101,8 @@ h3 {
 h1 {
   font-family: var(--font-sans);
   font-size: var(--step-3);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
