@@ -10,7 +10,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const inFeatured = new Set(featured.flatMap((f) => (f.project ? [f.project] : [])));
 const rest = projects.filter((p) => !inFeatured.has(p.slug));
 
-const orgs = new Intl.ListFormat("en", { type: "conjunction" }).format(career.map((c) => c.org));
+const orgs = new Intl.ListFormat("en", { type: "conjunction" }).format(career.filter((c) => c.org !== "Recurse Center").map((c) => c.org));
 ---
 
 <BaseLayout>
