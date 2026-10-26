@@ -52,7 +52,7 @@ export const featured: Featured[] = [
     org: "Side project",
     role: "Solo: dev, design, marketing",
     title: "Neopom",
-    hook: "A K-pop Pomodoro app that turns studying into collecting photocards. Over 200,000 people used it.",
+    hook: "A K-pop Pomodoro app that turns studying into collecting photocards. Used by over 200,000 people.",
     links: [
       { label: "neopom.net", href: "https://neopom.net" },
       { label: "Rappler", href: "https://www.rappler.com/technology/features/websites-apps-boost-students-productivity/" },
