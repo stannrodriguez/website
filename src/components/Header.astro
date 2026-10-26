@@ -1,10 +1,7 @@
 ---
 import { nav, site } from "../data/site";
 import { withBase } from "../lib/url";
-import Glyph from "./Glyph.astro";
-import ThemeToggle from "./ThemeToggle.astro";
 
-// Highlight the section you're in.
 const here = Astro.url.pathname.replace(/\/?$/, "/");
 const isCurrent = (path: string) => {
   const target = withBase(path);
@@ -13,11 +10,7 @@ const isCurrent = (path: string) => {
 ---
 
 <header class="site-header">
-  <a class="wordmark kind-play" href={withBase()}>
-    <Glyph slug="stephanie" kind="play" size={20} />
-    <span class="name">{site.name}</span>
-    <span class="role">{site.role}</span>
-  </a>
+  <a class="name" href={withBase()}>{site.name}</a>
   <nav aria-label="Primary">
     <ul role="list">
       {
@@ -31,119 +24,38 @@ const isCurrent = (path: string) => {
       }
     </ul>
   </nav>
-  <ThemeToggle />
 </header>
 
 <style>
   .site-header {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: baseline;
     gap: var(--space-xs) var(--space-m);
     width: 100%;
-    max-width: var(--page);
+    max-width: calc(var(--measure) + 2 * var(--space-m));
     margin-inline: auto;
-    padding: var(--space-m) var(--space-m) var(--space-s);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .wordmark {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
-    margin-right: auto;
-    text-decoration: none;
-  }
-
-  .wordmark:hover {
-    color: inherit;
+    padding: var(--space-l) var(--space-m) 0;
   }
 
   .name {
-    font-weight: 620;
-    font-variation-settings: "SOFT" 100, "WONK" 1;
-    letter-spacing: -0.01em;
-  }
-
-  .role {
-    color: var(--ink-muted);
-    font-style: italic;
-  }
-
-  @media (max-width: 30rem) {
-    .role {
-      display: none;
-    }
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .wordmark :global(.glyph) {
-      transition: rotate 700ms var(--ease-spring);
-    }
-
-    .wordmark:hover :global(.glyph) {
-      rotate: 0.5turn;
-    }
+    margin-right: auto;
+    font-weight: 600;
+    text-decoration: none;
   }
 
   ul {
     display: flex;
-    gap: var(--space-2xs);
-    padding: 0;
-    list-style: none;
+    gap: var(--space-s);
   }
 
-  /* The current page sits in [brackets]; hovering others hints at them. */
   nav a {
-    display: block;
-    padding: 0.3em 0.2em;
-    font-family: var(--font-mono);
-    font-size: var(--step--1);
     color: var(--ink-muted);
     text-decoration: none;
   }
 
-  nav a::before,
-  nav a::after {
-    display: inline-block;
-    color: var(--rule-strong);
-    opacity: 0;
-    transition:
-      opacity 160ms,
-      transform 300ms var(--ease-spring);
-  }
-
-  nav a::before {
-    content: "[";
-    margin-right: 0.35em;
-    transform: translateX(0.4em);
-  }
-
-  nav a::after {
-    content: "]";
-    margin-left: 0.35em;
-    transform: translateX(-0.4em);
-  }
-
-  nav a:hover {
-    color: var(--ink);
-  }
-
-  nav a:hover::before,
-  nav a:hover::after {
-    opacity: 1;
-    transform: none;
-  }
-
+  nav a:hover,
   nav a[aria-current="page"] {
     color: var(--ink);
-    font-weight: 600;
-  }
-
-  nav a[aria-current="page"]::before,
-  nav a[aria-current="page"]::after {
-    opacity: 1;
-    transform: none;
-    color: var(--accent);
   }
 </style>

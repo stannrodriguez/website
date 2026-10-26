@@ -1,7 +1,4 @@
 ---
-import "@fontsource-variable/fraunces/full.css";
-import "@fontsource-variable/fraunces/full-italic.css";
-import "@fontsource-variable/jetbrains-mono/wght.css";
 import "../styles/global.css";
 
 import Footer from "../components/Footer.astro";
@@ -39,16 +36,8 @@ const canonical = new URL(pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
-
-    <!-- Apply a stored theme before first paint to avoid a flash. -->
-    <script is:inline>
-      try {
-        const t = localStorage.getItem("theme");
-        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
-      } catch {}
-    </script>
   </head>
-  <body id="top">
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <main id="main" tabindex="-1">
@@ -63,11 +52,9 @@ const canonical = new URL(pathname, Astro.site);
     position: absolute;
     left: var(--space-s);
     top: -100px;
-    z-index: 10;
     padding: var(--space-xs) var(--space-s);
     background: var(--ink);
     color: var(--paper);
-    border-radius: var(--radius);
   }
 
   .skip-link:focus {
@@ -76,9 +63,9 @@ const canonical = new URL(pathname, Astro.site);
 
   main {
     width: 100%;
-    max-width: var(--page);
+    max-width: calc(var(--measure) + 2 * var(--space-m));
     margin-inline: auto;
-    padding: 0 var(--space-m) var(--space-xl);
+    padding: var(--space-l) var(--space-m) var(--space-xl);
   }
 
   main:focus {
