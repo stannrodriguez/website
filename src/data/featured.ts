@@ -38,7 +38,7 @@ export const featured: Featured[] = [
     slug: "notion-core-product",
     org: "Notion",
     role: "Software Engineer, Core Product",
-    title: "Workspace & collaboration",
+    title: "Notion",
     hook: "Worked on the sidebar, sharing, permissions, notifications, and Home.",
     links: [
       { label: "Sidebar", href: "https://www.notion.com/help/navigate-with-the-sidebar" },
@@ -50,9 +50,9 @@ export const featured: Featured[] = [
   {
     slug: "neopom",
     org: "Side project",
-    role: "Solo: dev, UX/UI, marketing, analytics",
+    role: "Solo: dev, design, marketing",
     title: "Neopom",
-    hook: "A K-pop (NCT) themed Pomodoro app that turns studying into collecting photocards.",
+    hook: "A K-pop Pomodoro app that turns studying into collecting photocards.",
     links: [
       { label: "neopom.net", href: "https://neopom.net" },
       { label: "Rappler", href: "https://www.rappler.com/technology/features/websites-apps-boost-students-productivity/" },
@@ -64,7 +64,7 @@ export const featured: Featured[] = [
   {
     slug: "prime-gaming",
     org: "Amazon",
-    role: "Software Development Engineer, Prime Gaming",
+    role: "Software Development Engineer",
     title: "Prime Gaming",
     hook: "Led the frontend redesign. It's still live.",
     links: [{ label: "Claims page", href: "https://luna.amazon.com/claims/home?g=s" }],

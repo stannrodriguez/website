@@ -16,7 +16,7 @@ export const site = {
   title: "Stephanie Rodriguez",
   role: "Software engineer",
   description:
-    "Software engineer, most recently building AI agents at Assembled. Small websites and tools about systems, physics, the mind, myth, and language.",
+    "Software engineer, most recently building AI agents at Assembled. I make small websites about systems, physics, the mind, myth, and language.",
   lang: "en",
 } as const;
 

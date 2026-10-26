@@ -30,7 +30,7 @@ export const projects: Project[] = [
   {
     slug: "nanosecond",
     title: "Nanosecond",
-    summary: "A game for building systems design intuition from the physics up.",
+    summary: "A game for building systems design intuition, starting from physics.",
     topics: ["systems design", "latency", "queueing"],
     stack: ["React", "TypeScript", "Zustand", "Playwright"],
     year: 2026,
@@ -41,7 +41,7 @@ export const projects: Project[] = [
   {
     slug: "spin",
     title: "SPIN",
-    summary: "An interactive explainer for why a spinning ping pong ball does what it does.",
+    summary: "An interactive explainer of why a spinning ping pong ball curves.",
     topics: ["physics", "table tennis"],
     stack: ["React", "TypeScript", "Tailwind", "Vitest"],
     year: 2026,
@@ -51,7 +51,7 @@ export const projects: Project[] = [
   {
     slug: "aplysium",
     title: "Twenty things we figured out about the mind",
-    summary: "Twenty neuroscience studies that held up under replication, thirteen with an experiment you can run.",
+    summary: "Twenty neuroscience findings that survived replication. Thirteen come with an experiment you can try.",
     topics: ["neuroscience", "psychology"],
     stack: ["Astro", "TypeScript", "custom elements"],
     year: 2026,
@@ -61,7 +61,7 @@ export const projects: Project[] = [
   {
     slug: "nightfall",
     title: "Nightfall",
-    summary: "A world tour of myth and fable, each retold over three nights.",
+    summary: "Myths and fables from around the world, each told over three nights.",
     topics: ["mythology", "storytelling"],
     stack: ["Astro"],
     year: 2026,
@@ -71,7 +71,7 @@ export const projects: Project[] = [
   {
     slug: "radix",
     title: "Radix",
-    summary: "A herbarium of Latin roots. Break words apart and compose new ones.",
+    summary: "A herbarium of Latin roots. Take words apart and build new ones.",
     topics: ["etymology", "spaced repetition"],
     stack: ["HTML", "CSS", "JavaScript"],
     year: 2026,
@@ -81,7 +81,7 @@ export const projects: Project[] = [
   {
     slug: "emotion-atlas",
     title: "Emotion Atlas",
-    summary: "An emotion wheel: six families that bloom into 63 finer words.",
+    summary: "An emotion wheel. Six families bloom into 63 finer feelings.",
     topics: ["emotions", "language"],
     stack: ["JavaScript", "SVG", "Playwright"],
     year: 2026,
@@ -101,7 +101,7 @@ export const projects: Project[] = [
   {
     slug: "metaphors",
     title: "Metaphors Worth Living By",
-    summary: "Twenty metaphors, each with its mechanics and the point where it breaks.",
+    summary: "Twenty metaphors, how each one works, and where it breaks.",
     topics: ["ideas", "language"],
     stack: ["Astro"],
     year: 2026,
@@ -121,7 +121,7 @@ export const projects: Project[] = [
   {
     slug: "reach",
     title: "Reach",
-    summary: "Mobility and strength routines. Pick 3, 5, 15, or 28 minutes.",
+    summary: "Mobility and strength routines in 3, 5, 15, or 28 minutes.",
     topics: ["mobility", "fitness"],
     stack: ["HTML", "JavaScript"],
     year: 2026,
@@ -131,7 +131,7 @@ export const projects: Project[] = [
   {
     slug: "sound-physics",
     title: "Sound Physics Visualizer",
-    summary: "Six views on how sound works, from sine waves to the Fourier transform.",
+    summary: "Six ways to see sound, from sine waves to the Fourier transform.",
     topics: ["sound", "signal processing"],
     stack: ["React", "Vite"],
     year: 2024,
@@ -149,7 +149,7 @@ export const projects: Project[] = [
   {
     slug: "browser",
     title: "A web browser",
-    summary: "A web browser built from scratch, following browser.engineering.",
+    summary: "A browser built from scratch, following browser.engineering.",
     topics: ["browsers", "the web"],
     stack: ["Python"],
     year: 2024,
@@ -158,7 +158,7 @@ export const projects: Project[] = [
   {
     slug: "simple-ann",
     title: "A neural network in R",
-    summary: "A simple neural network implemented from scratch in R.",
+    summary: "A simple neural network built from scratch in R.",
     topics: ["machine learning"],
     stack: ["R"],
     year: 2018,
@@ -177,7 +177,7 @@ export const projects: Project[] = [
   {
     slug: "loan-app",
     title: "LoanApp",
-    summary: "A Flask app that plans how to pay off personal debts.",
+    summary: "A Flask app that plans how to pay off personal debt.",
     topics: ["personal finance"],
     stack: ["Python", "Flask"],
     year: 2020,
@@ -186,7 +186,7 @@ export const projects: Project[] = [
   {
     slug: "potato-detector",
     title: "PotatoDetector",
-    summary: "A machine learning app that jokingly identifies my face as a potato.",
+    summary: "A machine learning app that insists my face is a potato.",
     topics: ["machine learning", "jokes"],
     stack: ["Python", "Jupyter"],
     year: 2020,
