@@ -39,12 +39,12 @@ export const featured: Featured[] = [
     org: "Notion",
     role: "Software Engineer, Core Product",
     title: "Workspace & collaboration",
-    hook: "Core Product team, working on workspace and collaboration features like the sidebar, sharing, permissions, notifications, and Home.",
+    hook: "Worked on the sidebar, sharing, permissions, notifications, and Home.",
     links: [
-      { label: "Sidebar help", href: "https://www.notion.com/help/navigate-with-the-sidebar" },
-      { label: "Teamspaces guide", href: "https://www.notion.com/help/guides/teamspaces-give-teams-home-for-important-work" },
-      { label: "Business plan launch", href: "https://www.notion.com/blog/notion-introduces-business-plan-and-expanded-free-plan" },
-      { label: "Notifications release notes (Feb 2023)", href: "https://www.notion.com/releases/2023-02-09#better-notifications" },
+      { label: "Sidebar", href: "https://www.notion.com/help/navigate-with-the-sidebar" },
+      { label: "Teamspaces", href: "https://www.notion.com/help/guides/teamspaces-give-teams-home-for-important-work" },
+      { label: "Business plan", href: "https://www.notion.com/blog/notion-introduces-business-plan-and-expanded-free-plan" },
+      { label: "Notifications", href: "https://www.notion.com/releases/2023-02-09#better-notifications" },
     ],
   },
   {
@@ -66,7 +66,7 @@ export const featured: Featured[] = [
     org: "Amazon",
     role: "Software Development Engineer, Prime Gaming",
     title: "Prime Gaming",
-    hook: "Led the frontend redesign of Prime Gaming, and it is still live today.",
-    links: [{ label: "Live Prime Gaming claims page", href: "https://luna.amazon.com/claims/home?g=s" }],
+    hook: "Led the frontend redesign. It's still live.",
+    links: [{ label: "Claims page", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
 ];
