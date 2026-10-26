@@ -73,6 +73,6 @@ export const featured: Featured[] = [
     title: "Prime Gaming",
     hook: "Led the frontend redesign of gaming.amazon.com.",
     logo: "logos/primegaming.ico",
-    links: [{ label: "Claims page", href: "https://luna.amazon.com/claims/home?g=s" }],
+    links: [{ label: "Prime Gaming", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
 ];
