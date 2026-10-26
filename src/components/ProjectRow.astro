@@ -15,16 +15,6 @@ const href = p.live ?? p.code;
     <p>
       {href ? <a href={href}>{p.title}</a> : p.title}
       <span class="muted"> · {p.summary}</span>
-      {
-        p.live && p.code && (
-          <>
-            {" "}
-            <a class="muted small" href={p.code}>
-              code<span class="visually-hidden"> for {p.title}</span>
-            </a>
-          </>
-        )
-      }
       {p.todo && <span class="todo">TODO</span>}
     </p>
     {p.status && <p class="muted small">{p.status}</p>}
