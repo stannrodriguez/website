@@ -1,0 +1,254 @@
+---
+/**
+ * One line in the project index: number, glyph, title and summary, then kind,
+ * year, and links. The whole row is clickable through the title link.
+ */
+import { kinds, type Project } from "../data/projects";
+import Glyph from "./Glyph.astro";
+
+interface Props {
+  project: Project;
+  /** 1-based position in the full list. */
+  number: number;
+}
+
+const { project: p, number } = Astro.props;
+const href = p.live ?? p.code;
+const no = String(number).padStart(2, "0");
+---
+
+<li
+  class={`row kind-${p.kind}`}
+  data-kind={p.kind}
+  style={`--i: ${number}; view-transition-name: row-${p.slug};`}
+>
+  <span class="no meta" aria-hidden="true">{no}</span>
+  <Glyph slug={p.slug} kind={p.kind} size={30} />
+
+  <div class="body">
+    <h3 class="title">
+      {href ? <a class="row-link" href={href}>{p.title}</a> : p.title}
+      {p.todo && <span class="todo">TODO</span>}
+    </h3>
+    <p class="summary">{p.summary}</p>
+    {p.status && <p class="note meta">{p.status}</p>}
+    {p.todo && <p class="note todo-note meta">{p.todo}</p>}
+    {
+      (p.topics.length > 0 || p.stack.length > 0) && (
+        <p class="tags meta">
+          {p.topics.length > 0 && <span class="topics">{p.topics.join(", ")}</span>}
+          {p.topics.length > 0 && p.stack.length > 0 && <span aria-hidden="true"> / </span>}
+          {p.stack.join(" · ")}
+        </p>
+      )
+    }
+  </div>
+
+  <div class="info">
+    <span class="kind meta"><span class="dot" aria-hidden="true"></span>{kinds[p.kind].label}</span>
+    <span class="year meta">{p.year ?? "—"}</span>
+    <span class="links meta">
+      {
+        p.live && (
+          <a href={p.live}>
+            Visit<span aria-hidden="true"> ↗</span>
+            <span class="visually-hidden"> {p.title}</span>
+          </a>
+        )
+      }
+      {
+        p.code && (
+          <a href={p.code}>
+            Code<span aria-hidden="true"> ↗</span>
+            <span class="visually-hidden"> for {p.title}</span>
+          </a>
+        )
+      }
+    </span>
+  </div>
+</li>
+
+<style>
+  .row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    grid-template-areas:
+      "glyph body"
+      ". info";
+    column-gap: var(--space-s);
+    row-gap: var(--space-xs);
+    align-items: start;
+    padding: var(--space-s) var(--space-xs);
+    border-bottom: 1px dashed var(--rule);
+    list-style: none;
+    transition: background-color 200ms;
+  }
+
+  .row[hidden] {
+    display: none;
+  }
+
+  .row:hover,
+  .row:focus-within {
+    background: color-mix(in oklch, var(--wash) 55%, transparent);
+  }
+
+  /* Numbers only fit once the row has room for all its columns. */
+  .no {
+    display: none;
+    grid-area: no;
+    padding-top: 0.3em;
+    font-size: var(--step--2);
+  }
+
+  .row :global(.glyph) {
+    grid-area: glyph;
+    margin-top: 0.1em;
+    transition: rotate 700ms var(--ease-spring);
+  }
+
+  .row:hover :global(.glyph),
+  .row:focus-within :global(.glyph) {
+    rotate: 0.25turn;
+  }
+
+  .body {
+    grid-area: body;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+
+  .title {
+    font-size: var(--step-1);
+    font-weight: 560;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+    letter-spacing: -0.01em;
+  }
+
+  .row-link {
+    text-decoration: none;
+  }
+
+  .row-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .row-link:hover {
+    color: inherit;
+  }
+
+  .row-link:focus-visible {
+    outline: none;
+  }
+
+  .row-link:focus-visible::after {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+
+  .summary {
+    max-width: 38em;
+    color: color-mix(in oklch, var(--ink) 85%, var(--paper));
+    line-height: 1.5;
+  }
+
+  .note,
+  .tags {
+    font-size: var(--step--2);
+  }
+
+  .todo-note {
+    color: var(--todo);
+  }
+
+  .topics {
+    color: var(--k);
+    font-family: var(--font-serif);
+    font-size: var(--step--1);
+    font-style: italic;
+  }
+
+  /* On narrow screens kind, year, and links share one line under the text. */
+  .info {
+    grid-area: info;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-s);
+  }
+
+  .kind,
+  .year,
+  .links {
+    font-size: var(--step--2);
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    color: var(--k);
+  }
+
+  .dot {
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: var(--k);
+  }
+
+  .links {
+    display: flex;
+    gap: var(--space-s);
+    margin-left: auto;
+  }
+
+  .links a {
+    position: relative;
+    z-index: 1;
+    color: var(--ink);
+    text-decoration-color: var(--rule-strong);
+  }
+
+  .links a:hover {
+    color: var(--k);
+    text-decoration-color: currentColor;
+  }
+
+  @media (min-width: 52rem) {
+    .row {
+      grid-template-columns: 2rem 2.25rem minmax(0, 1fr) 6.5rem 3rem 8.5rem;
+      grid-template-areas: "no glyph body kind year links";
+      column-gap: var(--space-m);
+      align-items: baseline;
+    }
+
+    .no {
+      display: block;
+    }
+
+    .row :global(.glyph) {
+      align-self: start;
+    }
+
+    .info {
+      display: contents;
+    }
+
+    .kind {
+      grid-area: kind;
+    }
+
+    .year {
+      grid-area: year;
+    }
+
+    .links {
+      grid-area: links;
+      justify-content: end;
+    }
+  }
+</style>

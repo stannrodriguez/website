@@ -1,43 +1,43 @@
 ---
+/**
+ * A large card for the projects at the top of the home page. The corners
+ * carry printer's registration marks, which turn when you hover the card.
+ */
 import { kinds, type Project } from "../data/projects";
-import { seeded } from "../lib/glyph";
 import Glyph from "./Glyph.astro";
 
 interface Props {
   project: Project;
   /** 1-based position in the full list; shown as the specimen number. */
   number: number;
-  wide?: boolean;
 }
 
-const { project: p, number, wide = false } = Astro.props;
+const { project: p, number } = Astro.props;
 const href = p.live ?? p.code;
-// A small, stable lean for the hover "pick up" so cards don't all move alike.
-const tilt = ((seeded(p.slug)() - 0.5) * 2.4).toFixed(2);
 const no = String(number).padStart(2, "0");
 ---
 
-<li
-  class:list={["card", `kind-${p.kind}`, { wide }]}
-  data-kind={p.kind}
-  style={`--i: ${number}; --tilt: ${tilt}deg; view-transition-name: card-${p.slug};`}
->
-  <article aria-labelledby={`${p.slug}-title`}>
-    <div class="top">
-      <span class="eyebrow">No. {no}{p.year && ` · ${p.year}`}</span>
-      <span class="pill">{kinds[p.kind].label}</span>
+<li class={`featured-card kind-${p.kind}`} style={`--i: ${number}`}>
+  <span class="mark tl" aria-hidden="true"></span>
+  <span class="mark tr" aria-hidden="true"></span>
+  <span class="mark bl" aria-hidden="true"></span>
+  <span class="mark br" aria-hidden="true"></span>
+
+  <article aria-labelledby={`${p.slug}-featured`}>
+    <div class="top meta">
+      <span>No. {no}{p.year && ` · ${p.year}`}</span>
+      <span class="kind"><span class="dot" aria-hidden="true"></span>{kinds[p.kind].label}</span>
     </div>
 
-    <Glyph slug={p.slug} kind={p.kind} size={wide ? 84 : 60} />
+    <Glyph slug={p.slug} kind={p.kind} size={72} />
 
-    <h3 id={`${p.slug}-title`} class="title">
+    <h3 id={`${p.slug}-featured`} class="title">
       {href ? <a class="card-link" href={href}>{p.title}</a> : p.title}
       {p.todo && <span class="todo">TODO</span>}
     </h3>
 
     <p class="summary">{p.summary}</p>
     {p.status && <p class="status meta">{p.status}</p>}
-    {p.todo && <p class="todo-note meta">{p.todo}</p>}
 
     <div class="foot">
       {p.topics.length > 0 && <p class="topics">{p.topics.join(", ")}</p>}
@@ -65,57 +65,62 @@ const no = String(number).padStart(2, "0");
 </li>
 
 <style>
-  .card {
+  .featured-card {
     position: relative;
     list-style: none;
   }
 
-  .card[hidden] {
-    display: none;
+  /* Registration marks: a small crosshair centered on each corner. */
+  .mark {
+    position: absolute;
+    z-index: 1;
+    width: 22px;
+    height: 22px;
+    margin: -11px;
+    background:
+      linear-gradient(var(--rule-strong), var(--rule-strong)) center / 100% 1px no-repeat,
+      linear-gradient(var(--rule-strong), var(--rule-strong)) center / 1px 100% no-repeat;
+    pointer-events: none;
+    transition:
+      rotate 600ms var(--ease-spring),
+      opacity 200ms;
   }
 
-  @media (min-width: 52rem) {
-    .wide {
-      grid-column: span 2;
-    }
+  .tl { top: 0; left: 0; }
+  .tr { top: 0; right: 0; }
+  .bl { bottom: 0; left: 0; }
+  .br { bottom: 0; right: 0; }
+
+  .featured-card:hover .mark,
+  .featured-card:focus-within .mark {
+    --rule-strong: var(--k);
+    rotate: 45deg;
   }
 
   article {
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--space-xs);
     height: 100%;
     padding: var(--space-m);
-    border: 1.5px solid color-mix(in oklch, var(--k) 28%, var(--rule));
-    border-radius: var(--radius-l);
-    background:
-      radial-gradient(120% 90% at 100% 0%, var(--wash), transparent 70%),
-      var(--paper-raised);
-    box-shadow: 0 1px 0 color-mix(in oklch, var(--k) 25%, transparent);
-    transition:
-      transform 420ms var(--ease-spring),
-      box-shadow 420ms var(--ease-out),
-      border-color 200ms;
+    border: 1px solid var(--rule);
+    background: var(--paper-raised);
+    transition: border-color 200ms;
   }
 
-  .card:hover article,
-  .card:focus-within article {
-    transform: translateY(-5px) rotate(var(--tilt));
-    border-color: var(--k);
-    box-shadow:
-      0 1px 0 var(--k),
-      0 18px 32px -18px color-mix(in oklch, var(--k) 55%, transparent);
+  .featured-card:hover article,
+  .featured-card:focus-within article {
+    border-color: color-mix(in oklch, var(--k) 45%, var(--rule));
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .card {
+    .featured-card {
       animation: rise 700ms var(--ease-out) both;
-      animation-delay: calc(min(var(--i), 12) * 45ms);
+      animation-delay: calc(var(--i) * 70ms + 200ms);
     }
 
-    .card:hover :global(.glyph),
-    .card:focus-within :global(.glyph) {
+    .featured-card:hover :global(.glyph),
+    .featured-card:focus-within :global(.glyph) {
       animation: spin 9s linear infinite;
     }
   }
@@ -123,7 +128,7 @@ const no = String(number).padStart(2, "0");
   @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(14px);
+      transform: translateY(10px);
     }
   }
 
@@ -135,35 +140,33 @@ const no = String(number).padStart(2, "0");
 
   .top {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     gap: var(--space-xs);
-    margin-bottom: var(--space-xs);
-  }
-
-  .pill {
-    padding: 0.15em 0.65em;
-    border-radius: 999px;
-    background: var(--wash);
-    color: var(--k);
-    font-family: var(--font-mono);
     font-size: var(--step--2);
-    font-weight: 600;
-    letter-spacing: 0.04em;
   }
 
-  .card :global(.glyph) {
-    margin-block: var(--space-xs) var(--space-s);
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    color: var(--k);
+  }
+
+  .dot {
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: var(--k);
+  }
+
+  .featured-card :global(.glyph) {
+    margin-block: var(--space-m) var(--space-s);
   }
 
   .title {
-    font-size: var(--step-1);
-    font-weight: 600;
-    font-variation-settings: "SOFT" 100, "WONK" 1;
-  }
-
-  .wide .title {
     font-size: var(--step-2);
+    font-weight: 560;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
   }
 
   .card-link {
@@ -175,7 +178,6 @@ const no = String(number).padStart(2, "0");
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: var(--radius-l);
   }
 
   .card-link:focus-visible {
@@ -192,29 +194,20 @@ const no = String(number).padStart(2, "0");
   }
 
   .summary {
-    color: color-mix(in oklch, var(--ink) 88%, var(--paper));
+    max-width: 32em;
+    color: color-mix(in oklch, var(--ink) 85%, var(--paper));
     line-height: 1.5;
   }
 
-  .wide .summary {
-    font-size: var(--step-1);
-    max-width: 34em;
-  }
-
-  .status,
-  .todo-note {
+  .status {
     font-size: var(--step--2);
-  }
-
-  .todo-note {
-    color: var(--todo);
   }
 
   .foot {
     display: grid;
     gap: var(--space-2xs);
     margin-top: auto;
-    padding-top: var(--space-s);
+    padding-top: var(--space-m);
   }
 
   .topics {
@@ -235,13 +228,13 @@ const no = String(number).padStart(2, "0");
 
   .links a {
     position: relative;
-    z-index: 1;
-    font-weight: 600;
-    color: var(--k);
-    text-decoration-color: color-mix(in oklch, var(--k) 45%, transparent);
+    z-index: 2;
+    color: var(--ink);
+    text-decoration-color: var(--rule-strong);
   }
 
   .links a:hover {
+    color: var(--k);
     text-decoration-color: currentColor;
   }
 </style>

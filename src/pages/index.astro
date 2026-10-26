@@ -1,32 +1,61 @@
 ---
+import FeaturedCard from "../components/FeaturedCard.astro";
 import ProjectIndex from "../components/ProjectIndex.astro";
 import SpringyText from "../components/SpringyText.astro";
-import Ticker from "../components/Ticker.astro";
 import { projects } from "../data/projects";
+import { career, contact, site } from "../data/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { withBase } from "../lib/url";
 
-const topics = [...new Set(projects.flatMap((p) => p.topics))];
+/** How many projects at the top get a large card. */
+const FEATURED = 2;
+
 const years = projects.flatMap((p) => (p.year ? [p.year] : []));
 const span = `${Math.min(...years)}–${Math.max(...years)}`;
+const github = contact.find((c) => c.label === "GitHub");
 ---
 
 <BaseLayout>
   <section class="hero" aria-labelledby="hero-heading">
-    <p class="eyebrow">Software engineer · {projects.length} projects, {span}</p>
     <h1 id="hero-heading"><SpringyText text="Hi, I'm Stephanie." /></h1>
     <p class="lede">
       I build small websites to figure things out: why a spinning ping pong ball curves, what a nanosecond means for a
       system, which Latin roots hide inside English words. Here are some of them.
     </p>
-    <p class="meta"><a href={withBase("about/")}>More about me →</a></p>
+
+    <dl class="spec">
+      <div>
+        <dt class="eyebrow">Role</dt>
+        <dd>{site.role}</dd>
+      </div>
+      <div>
+        <dt class="eyebrow">Previously</dt>
+        <dd>{career.map((c) => c.org).join(", ")}</dd>
+      </div>
+      <div>
+        <dt class="eyebrow">Projects</dt>
+        <dd>{projects.length}, from {span}</dd>
+      </div>
+      <div>
+        <dt class="eyebrow">More</dt>
+        <dd>
+          <a href={withBase("about/")}>About</a>
+          {github?.href && <> · <a href={github.href}>GitHub</a></>}
+        </dd>
+      </div>
+    </dl>
   </section>
 
-  <Ticker label="Curious about" items={topics} />
+  <section class="featured" aria-labelledby="featured-heading">
+    <h2 id="featured-heading" class="eyebrow">Start here</h2>
+    <ul class="featured-grid" role="list">
+      {projects.slice(0, FEATURED).map((p, i) => <FeaturedCard project={p} number={i + 1} />)}
+    </ul>
+  </section>
 
-  <section class="projects" aria-labelledby="projects-heading">
-    <h2 id="projects-heading" class="visually-hidden">Projects</h2>
-    <ProjectIndex projects={projects} />
+  <section class="projects" aria-labelledby="index-heading">
+    <h2 id="index-heading" class="eyebrow">Everything else</h2>
+    <ProjectIndex projects={projects.slice(FEATURED)} start={FEATURED + 1} />
   </section>
 </BaseLayout>
 
@@ -39,19 +68,50 @@ const span = `${Math.min(...years)}–${Math.max(...years)}`;
 
   h1 {
     font-size: var(--step-4);
-    font-weight: 520;
-    letter-spacing: -0.035em;
+    font-weight: 480;
+    letter-spacing: -0.04em;
     line-height: 0.95;
   }
 
   .lede {
-    max-width: 34em;
+    max-width: 30em;
     font-size: var(--step-1);
     line-height: 1.45;
-    color: color-mix(in oklch, var(--ink) 82%, var(--paper));
+    color: color-mix(in oklch, var(--ink) 80%, var(--paper));
+  }
+
+  /* An identity panel: hairline-ruled label/value cells. */
+  .spec {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+    margin-top: var(--space-m);
+    border-top: 1px solid var(--rule);
+  }
+
+  .spec > div {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2xs);
+    padding: var(--space-s) var(--space-s) var(--space-s) 0;
+  }
+
+  dd {
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  section > h2 {
+    margin-bottom: var(--space-m);
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-l);
+    padding: 0;
   }
 
   .projects {
-    padding-top: var(--space-l);
+    padding-top: var(--space-xl);
   }
 </style>

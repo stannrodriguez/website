@@ -14,6 +14,7 @@ export interface ContactLink {
 export const site = {
   name: "Stephanie Rodriguez",
   title: "Stephanie Rodriguez",
+  role: "Software engineer",
   description:
     "Software engineer, previously at Notion and Amazon. Small websites and tools about systems, physics, the mind, myth, and language.",
   lang: "en",
