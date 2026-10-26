@@ -54,7 +54,7 @@ export interface Role {
 
 /** Most recent first. Dates intentionally omitted until confirmed. */
 export const career: Role[] = [
-  { org: "Notion", role: "Software engineer, infrastructure and growth" },
+  { org: "Notion", role: "Software engineer, Core Product" },
   { org: "Amazon", role: "Software engineer, Prime Gaming" },
   { org: "Capital Group", role: "Quantitative analyst" },
   { org: "Kaiser Permanente", role: "Actuary" },
