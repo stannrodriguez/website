@@ -3,6 +3,8 @@
  * until Stephanie fills it in. See REBUILD_NOTES.md.
  */
 
+import { withBase } from "../lib/url";
+
 export interface ContactLink {
   label: string;
   /** Omit until the real URL is known; the link renders as plain text. */
@@ -16,7 +18,7 @@ export const site = {
   title: "Stephanie Rodriguez",
   role: "Software engineer",
   description:
-    "Software engineer, previously at Notion and Amazon. Small websites and tools about systems, physics, the mind, myth, and language.",
+    "Software engineer, most recently building AI agents at Assembled. Small websites and tools about systems, physics, the mind, myth, and language.",
   lang: "en",
 } as const;
 
@@ -34,15 +36,18 @@ export const contact: ContactLink[] = [
   },
   {
     label: "Email",
-    todo: "Add the address you want public (a dedicated one is fine).",
+    href: "mailto:stephsiriban@gmail.com",
+    handle: "stephsiriban@gmail.com",
   },
   {
     label: "LinkedIn",
-    todo: "Add your LinkedIn URL.",
+    href: "https://www.linkedin.com/in/stephanie-ann-rodriguez",
+    handle: "stephanie-ann-rodriguez",
   },
   {
     label: "Résumé",
-    todo: "Drop a PDF in public/ and link it here.",
+    href: withBase("resume.pdf"),
+    handle: "PDF",
   },
 ];
 
@@ -53,8 +58,10 @@ export interface Role {
 
 /** Most recent first. Dates intentionally omitted until confirmed. */
 export const career: Role[] = [
-  { org: "Notion", role: "Software engineer, Core Product" },
-  { org: "Amazon", role: "Software engineer, Prime Gaming" },
-  { org: "Capital Group", role: "Quantitative analyst" },
-  { org: "Kaiser Permanente", role: "Actuary" },
+  { org: "Assembled", role: "Software Engineer, AI Agents" },
+  { org: "Recurse Center", role: "Participant" },
+  { org: "Notion", role: "Software Engineer, Core Product" },
+  { org: "Amazon", role: "Software Development Engineer, Prime Gaming" },
+  { org: "Sonder Social", role: "Full Stack Software Engineer" },
+  { org: "Capital Group", role: "Risk and Quantitative Analyst" },
 ];

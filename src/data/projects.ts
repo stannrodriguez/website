@@ -201,12 +201,13 @@ export const projects: Project[] = [
   {
     slug: "neopom",
     title: "Neopom",
-    summary: "A productivity app I built in four days, about a year after I learned to code. It grew past 200,000 users.",
+    summary:
+      "A motivational productivity app with 200,000 users across 32 countries. I built it end to end: development, UX/UI, marketing, and analytics.",
     kind: "early",
     topics: ["productivity"],
-    stack: [],
+    stack: ["React", "Firebase"],
     year: undefined,
-    todo: "Add the year, the stack, and a link if there's a public one.",
+    live: "https://neopom.net",
   },
   {
     slug: "loan-app",

@@ -96,7 +96,7 @@ The kinds are there to show range, from games to explainers to reading sites to 
 | 12 | Optical Illusion Breaker | optical_illusions | Poke at | (code only) |
 | 13 | A web browser | browser_eng | Rebuild | (code only) |
 | 14 | A neural network in R | simple-ann | Rebuild | (code only) |
-| 15 | Neopom | (none public) | Early | (none) |
+| 15 | Neopom | (none public) | Early | neopom.net |
 | 16 | LoanApp | LoanApp | Early | (code only) |
 | 17 | PotatoDetector | PotatoDetector | Early | (code only) |
 
@@ -118,10 +118,10 @@ Projects with a live site come first, since that's what a visitor can actually t
 Highest value first.
 
 1. **Read the project copy** (`src/data/projects.ts`). Every line is factual, but none of it is in your voice yet. Reorder, cut, or add anything. The `status` field on Nanosecond is optional.
-2. **Neopom.** It has a visible TODO badge. Add the year, the stack, and a public link if there is one. If one of the private `pomodorozen` repos is Neopom, say so. I didn't assume it.
+2. **Neopom.** Done: copy, stack (React, Firebase), and link (neopom.net) now come from the résumé. No year, on purpose.
 3. **Live links I couldn't confirm.** `stannrodriguez.github.io/sound_viz/` responds, but its page title is "Vite + React", and I couldn't tell whether the app actually renders, so the card links only the code. If it works, add `live: pages("sound_viz")`. Nanosecond is client-rendered, so the fetch saw only its title. It loads, but give it a quick look.
-4. **Contact** (`src/data/site.ts`). Add a public email, a LinkedIn URL, and a résumé PDF in `public/`. Until then, each one shows a TODO badge on the About page.
-5. **About copy** (`src/pages/about.astro`). It's short on purpose. The last line ("serve a good purpose… come away better for it") is adapted from your old site. Check that it still sounds like you. The Amazon title ("Software engineer, Prime Gaming") is still my inference. Add years if you want them.
+4. **Contact** (`src/data/site.ts`). Done: email, LinkedIn, and the résumé (`public/resume.pdf`). The phone number is deliberately left off.
+5. **About copy** (`src/pages/about.astro`). It's short on purpose. The career list and the first paragraph follow the résumé (`public/resume.pdf`). The last line ("serve a good purpose… come away better for it") is adapted from your old site. Check that it still sounds like you. Add years if you want them.
 6. **Try the hover details** in a real browser: the nav brackets, the crosshairs on the featured cards, and the glyphs turning in the index rows. If any of them feels like too much, each one is a few lines of CSS in its own component.
 7. **Upgrade Node and Astro.** Install Node 22+, then `npm install astro@latest @astrojs/check@latest`. `npm audit` flags XSS advisories in Astro below 7.3.2. They're low risk for a static site with only your own content, but the upgrade clears them.
 8. **Social preview image.** Add a 1200×630 image to `public/` and an `og:image` tag in `src/layouts/BaseLayout.astro`. A grid of the project glyphs would make a good one.
