@@ -30,7 +30,7 @@ export const featured: Featured[] = [
     slug: "assembled-ai-agents",
     org: "Assembled",
     role: "Software Engineer, AI Agents · San Francisco",
-    title: "AI Agents",
+    title: "Assembled",
     hook: "Built the chat agent for AI customer support.",
     links: [{ label: "assembled.com", href: "https://www.assembled.com" }],
   },
@@ -66,7 +66,7 @@ export const featured: Featured[] = [
     org: "Amazon",
     role: "Software Development Engineer",
     title: "Prime Gaming",
-    hook: "Led the frontend redesign. It's still live.",
+    hook: "Led the frontend redesign of gaming.amazon.com and its homepage.",
     links: [{ label: "Claims page", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
 ];
