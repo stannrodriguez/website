@@ -27,33 +27,51 @@ import { withBase } from "../lib/url";
       </p>
     </div>
 
-    <section aria-labelledby="work-heading">
-      <h2 id="work-heading" class="eyebrow">Where I've worked</h2>
-      <ul class="career" role="list">
-        {
-          career.map((item) => (
-            <li>
-              <span class="org">{item.org}</span>
-              <span class="meta">{item.role}</span>
-            </li>
-          ))
-        }
-      </ul>
-    </section>
+    <aside>
+      <section aria-labelledby="work-heading">
+        <h2 id="work-heading" class="eyebrow">Where I've worked</h2>
+        <ul class="career" role="list">
+          {
+            career.map((item) => (
+              <li>
+                <span class="org">{item.org}</span>
+                <span class="meta">{item.role}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
 
-    <section aria-labelledby="elsewhere-heading">
-      <h2 id="elsewhere-heading" class="eyebrow">Elsewhere</h2>
-      <ContactList links={contact} />
-    </section>
+      <section aria-labelledby="elsewhere-heading">
+        <h2 id="elsewhere-heading" class="eyebrow">Elsewhere</h2>
+        <ContactList links={contact} />
+      </section>
+    </aside>
   </article>
 </BaseLayout>
 
 <style>
+  /* Prose on the left, the facts in a ruled column beside it on wide screens. */
   .about {
     display: grid;
     gap: var(--space-l);
-    max-width: var(--measure);
     padding-top: var(--space-xl);
+  }
+
+  @media (min-width: 60rem) {
+    .about {
+      grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+      column-gap: var(--space-xl);
+    }
+
+    header {
+      grid-column: 1 / -1;
+    }
+
+    aside {
+      padding-left: var(--space-l);
+      border-left: 1px solid var(--rule);
+    }
   }
 
   header {
@@ -70,6 +88,12 @@ import { withBase } from "../lib/url";
     margin-top: var(--space-s);
   }
 
+  aside {
+    display: grid;
+    align-content: start;
+    gap: var(--space-l);
+  }
+
   section {
     display: grid;
     gap: var(--space-s);
@@ -79,22 +103,21 @@ import { withBase } from "../lib/url";
     display: grid;
     padding: 0;
     list-style: none;
-    border-top: 1.5px solid var(--ink);
+    border-top: 1px solid var(--ink);
   }
 
   .career li {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0 var(--space-s);
+    display: grid;
     padding-block: var(--space-xs);
-    border-bottom: 1px solid var(--rule);
+    border-bottom: 1px dashed var(--rule);
   }
 
   .org {
-    font-size: var(--step-1);
     font-weight: 600;
     font-variation-settings: "SOFT" 100, "WONK" 1;
+  }
+
+  .career .meta {
+    font-size: var(--step--2);
   }
 </style>

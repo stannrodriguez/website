@@ -41,13 +41,17 @@ const { links } = Astro.props;
 
   @media (min-width: 34rem) {
     .row {
-      grid-template-columns: 7rem minmax(0, 1fr);
+      grid-template-columns: 5.5rem minmax(0, 1fr);
       align-items: baseline;
     }
   }
 
   dd {
     overflow-wrap: anywhere;
+  }
+
+  .note {
+    font-size: var(--step--2);
   }
 
   .missing {
