@@ -14,6 +14,15 @@ npm run deploy    # builds, then publishes dist/ to the gh-pages branch (pushes 
 
 Node 20.3 or newer works. See the upgrade TODO below.
 
+## Featured pass
+
+"Start here" now holds exactly three cards, in this order: **Notion** (Core Product, workspace & collaboration), **Neopom**, and **Amazon Prime Gaming**. Nanosecond and SPIN went back into the index.
+
+- **Data** is in `src/data/featured.ts`. Every line comes from the featured brief (Notion Career History, the résumé, Rappler, EnVi Media, and the TikTok). Neopom's entry in `projects.ts` stays, so the hero still counts 17 projects. The card's `project: "neopom"` keeps it out of the index, which is now numbered 04–19.
+- **Cards** (`FeaturedCard.astro`) are full width now. Each one has a hook, highlights (past four, they fold into a "N more" disclosure), and, on wide screens, a ruled column of metrics beside the text. Neopom has a press strip with the Rappler and EnVi quotes and the TikTok (caption, likes/comments/saves). Prime Gaming has no metrics in any source, so it gets a "Still live" flag. Each card has its own hue (Notion tomato, Neopom green, Prime purple), and the crosshairs and glyph spin are unchanged.
+- **The brief's flags, kept:** Home says "built", never "led". Neopom has no year. The TikTok comment is a paraphrase, with no quotation marks. The TikTok numbers come from your screenshot.
+- **Not checked by eye.** I couldn't take screenshots in this session, so look at home at desktop and phone widths, in light and dark.
+
 ## Third pass: what changed
 
 **Removed**
