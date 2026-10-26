@@ -1,234 +1,32 @@
 ---
-/**
- * A large card for the featured work at the top of the home page: name, role,
- * one sentence, and links. The corners carry printer's registration marks,
- * which turn when you hover the card. Each card takes its color from its own
- * hue.
- */
+/** One featured item on the home page: name, role, one sentence, and links. */
 import type { Featured } from "../data/featured";
-import Glyph from "./Glyph.astro";
 
 interface Props {
   item: Featured;
-  /** 1-based position; shown as the specimen number. */
-  number: number;
 }
 
-const { item: f, number } = Astro.props;
-const href = f.links[0]?.href;
-const no = String(number).padStart(2, "0");
+const { item: f } = Astro.props;
 ---
 
-<li class="featured-card kind-featured" style={`--i: ${number}; --h: ${f.hue}`}>
-  <span class="mark tl" aria-hidden="true"></span>
-  <span class="mark tr" aria-hidden="true"></span>
-  <span class="mark bl" aria-hidden="true"></span>
-  <span class="mark br" aria-hidden="true"></span>
-
-  <article aria-labelledby={`${f.slug}-featured`}>
-    <div class="top meta">
-      <span>No. {no}</span>
-      <span class="org"><span class="dot" aria-hidden="true"></span>{f.org}</span>
-    </div>
-
-    <div class="main">
-      <div class="head">
-        <Glyph slug={f.slug} kind={f.glyph} size={64} />
-        <div>
-          <h3 id={`${f.slug}-featured`} class="title">
-            {href ? <a class="card-link" href={href}>{f.title}</a> : f.title}
-          </h3>
-          <p class="role meta">{f.role}</p>
-        </div>
-      </div>
-
-      <p class="hook">{f.hook}</p>
-    </div>
-
-    <p class="links meta">
-      {
-        f.links.map((l) => (
-          <a href={l.href}>
-            {l.label}
-            <span aria-hidden="true"> ↗</span>
-          </a>
-        ))
-      }
-    </p>
-  </article>
+<li>
+  <h3>{f.title}</h3>
+  <p class="muted small">{f.org} · {f.role}</p>
+  <p>{f.hook}</p>
+  <p class="small">
+    {
+      f.links.map((l, i) => (
+        <>
+          {i > 0 && <span class="muted"> · </span>}
+          <a href={l.href}>{l.label}</a>
+        </>
+      ))
+    }
+  </p>
 </li>
 
 <style>
-  .featured-card {
-    position: relative;
-    list-style: none;
-  }
-
-  /* Registration marks: a small crosshair centered on each corner. */
-  .mark {
-    position: absolute;
-    z-index: 1;
-    width: 22px;
-    height: 22px;
-    margin: -11px;
-    background:
-      linear-gradient(var(--rule-strong), var(--rule-strong)) center / 100% 1px no-repeat,
-      linear-gradient(var(--rule-strong), var(--rule-strong)) center / 1px 100% no-repeat;
-    pointer-events: none;
-    transition:
-      rotate 600ms var(--ease-spring),
-      opacity 200ms;
-  }
-
-  .tl { top: 0; left: 0; }
-  .tr { top: 0; right: 0; }
-  .bl { bottom: 0; left: 0; }
-  .br { bottom: 0; right: 0; }
-
-  .featured-card:hover .mark,
-  .featured-card:focus-within .mark {
-    --rule-strong: var(--k);
-    rotate: 45deg;
-  }
-
-  article {
-    display: grid;
-    align-content: start;
-    gap: var(--space-m);
-    height: 100%;
-    padding: var(--space-m);
-    border: 1px solid var(--rule);
-    background: var(--paper-raised);
-    transition: border-color 200ms;
-  }
-
-  @media (min-width: 52rem) {
-    article {
-      padding: var(--space-l);
-    }
-  }
-
-  .featured-card:hover article,
-  .featured-card:focus-within article {
-    border-color: color-mix(in oklch, var(--k) 45%, var(--rule));
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .featured-card {
-      animation: rise 700ms var(--ease-out) both;
-      animation-delay: calc(var(--i) * 70ms + 200ms);
-    }
-
-    .featured-card:hover :global(.glyph),
-    .featured-card:focus-within :global(.glyph) {
-      animation: spin 9s linear infinite;
-    }
-  }
-
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-  }
-
-  @keyframes spin {
-    to {
-      rotate: 1turn;
-    }
-  }
-
-  .top {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-xs);
-    font-size: var(--step--2);
-  }
-
-  .org {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5em;
-    color: var(--k);
-  }
-
-  .dot {
-    width: 0.55em;
-    height: 0.55em;
-    border-radius: 50%;
-    background: var(--k);
-  }
-
-  .main {
-    display: grid;
-    align-content: start;
-    gap: var(--space-s);
-  }
-
-  .head {
-    display: flex;
-    align-items: center;
-    gap: var(--space-s);
-  }
-
-  .title {
-    font-size: var(--step-2);
-    font-weight: 560;
-    font-variation-settings: "SOFT" 100, "WONK" 1;
-  }
-
-  .role {
-    margin-top: var(--space-2xs);
-    font-size: var(--step--2);
-  }
-
-  .card-link {
-    text-decoration: none;
-  }
-
-  /* The whole card is the title link; every other link sits above it. */
-  .card-link::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-  }
-
-  .card-link:focus-visible {
-    outline: none;
-  }
-
-  .card-link:focus-visible::after {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
-
-  .card-link:hover {
-    color: inherit;
-  }
-
-  .hook {
-    max-width: 34em;
-    font-size: var(--step-1);
-    font-variation-settings: "SOFT" 100;
-    line-height: 1.4;
-  }
-
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2xs) var(--space-s);
-    font-size: var(--step--2);
-  }
-
-  .links a {
-    position: relative;
-    z-index: 2;
-    color: var(--ink);
-    text-decoration-color: var(--rule-strong);
-  }
-
-  .links a:hover {
-    color: var(--k);
-    text-decoration-color: currentColor;
+  .small {
+    font-size: var(--step--1);
   }
 </style>

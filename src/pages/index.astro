@@ -1,118 +1,59 @@
 ---
 import FeaturedCard from "../components/FeaturedCard.astro";
-import ProjectIndex from "../components/ProjectIndex.astro";
-import SpringyText from "../components/SpringyText.astro";
+import ProjectRow from "../components/ProjectRow.astro";
 import { featured } from "../data/featured";
 import { projects } from "../data/projects";
-import { career, contact, site } from "../data/site";
+import { career, site } from "../data/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { withBase } from "../lib/url";
 
-/** Projects that already have a featured card stay out of the index. */
+/** Projects that already have a featured entry stay out of the list. */
 const inFeatured = new Set(featured.flatMap((f) => (f.project ? [f.project] : [])));
 const rest = projects.filter((p) => !inFeatured.has(p.slug));
-
-const years = projects.flatMap((p) => (p.year ? [p.year] : []));
-const span = `${Math.min(...years)}–${Math.max(...years)}`;
-const github = contact.find((c) => c.label === "GitHub");
 ---
 
 <BaseLayout>
-  <section class="hero" aria-labelledby="hero-heading">
-    <h1 id="hero-heading"><SpringyText text="Hi, I'm Stephanie." /></h1>
-    <p class="lede">
+  <section class="intro">
+    <h1>Hi, I'm Stephanie.</h1>
+    <p>
       I build small websites to figure things out: why a spinning ping pong ball curves, what a nanosecond means for a
-      system, which Latin roots hide inside English words. Here are some of them.
+      system, which Latin roots hide inside English words.
     </p>
-
-    <dl class="spec">
-      <div>
-        <dt class="eyebrow">Role</dt>
-        <dd>{site.role}</dd>
-      </div>
-      <div>
-        <dt class="eyebrow">Previously</dt>
-        <dd>{career.map((c) => c.org).join(", ")}</dd>
-      </div>
-      <div>
-        <dt class="eyebrow">Projects</dt>
-        <dd>{projects.length}, from {span}</dd>
-      </div>
-      <div>
-        <dt class="eyebrow">More</dt>
-        <dd>
-          <a href={withBase("about/")}>About</a>
-          {github?.href && <> · <a href={github.href}>GitHub</a></>}
-        </dd>
-      </div>
-    </dl>
+    <p class="muted">{site.role}. Previously at {career.map((c) => c.org).join(", ")}.</p>
   </section>
 
-  <section class="featured" aria-labelledby="featured-heading">
-    <h2 id="featured-heading" class="eyebrow">Start here</h2>
-    <ul class="featured-grid" role="list">
-      {featured.map((f, i) => <FeaturedCard item={f} number={i + 1} />)}
+  <section aria-labelledby="featured-heading">
+    <h2 id="featured-heading">Featured</h2>
+    <ul class="list" role="list">
+      {featured.map((f) => <FeaturedCard item={f} />)}
     </ul>
   </section>
 
-  <section class="projects" aria-labelledby="index-heading">
-    <h2 id="index-heading" class="eyebrow">Everything else</h2>
-    <ProjectIndex projects={rest} start={featured.length + 1} />
+  <section aria-labelledby="projects-heading">
+    <h2 id="projects-heading">Projects</h2>
+    <ul class="list" role="list">
+      {rest.map((p) => <ProjectRow project={p} />)}
+    </ul>
   </section>
 </BaseLayout>
 
 <style>
-  .hero {
+  section + section {
+    margin-top: var(--space-xl);
+  }
+
+  .intro {
     display: grid;
-    gap: var(--space-m);
-    padding-block: var(--space-xl) var(--space-l);
+    gap: var(--space-s);
   }
 
-  h1 {
-    font-size: var(--step-4);
-    font-weight: 480;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-  }
-
-  .lede {
-    max-width: 30em;
-    font-size: var(--step-1);
-    line-height: 1.45;
-    color: color-mix(in oklch, var(--ink) 80%, var(--paper));
-  }
-
-  /* An identity panel: hairline-ruled label/value cells. */
-  .spec {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
-    margin-top: var(--space-m);
-    border-top: 1px solid var(--rule);
-  }
-
-  .spec > div {
-    display: grid;
-    align-content: start;
-    gap: var(--space-2xs);
-    padding: var(--space-s) var(--space-s) var(--space-s) 0;
-  }
-
-  dd {
-    font-size: var(--step--1);
-    line-height: 1.45;
-  }
-
-  section > h2 {
+  h2 {
     margin-bottom: var(--space-m);
+    color: var(--ink-muted);
+    font-weight: 400;
   }
 
-  .featured-grid {
+  .list {
     display: grid;
     gap: var(--space-l);
-    padding: 0;
-  }
-
-  .projects {
-    padding-top: var(--space-xl);
   }
 </style>

@@ -1,13 +1,11 @@
 /**
- * The large cards at the top of the home page. Order here is display order.
+ * The featured work at the top of the home page. Order here is display order.
  *
- * Each card is deliberately short: name, role, one plain sentence on what
+ * Each entry is deliberately short: name, role, one plain sentence on what
  * Stephanie worked on, and links. Every line comes from ~/.featured_brief.md
  * (Notion Career History, the résumé, and the press pieces linked below); add
  * nothing that isn't there. Neopom has no year.
  */
-
-import type { Kind } from "./projects";
 
 export interface Link {
   label: string;
@@ -23,10 +21,7 @@ export interface Featured {
   /** One short, plain sentence. */
   hook: string;
   links: Link[];
-  /** Glyph family (shape only) and hue for the card's color. */
-  glyph: Kind;
-  hue: number;
-  /** A project in projects.ts this card stands for; it's left out of the index below. */
+  /** A project in projects.ts this entry stands for; it's left out of the project list below. */
   project?: string;
 }
 
@@ -38,8 +33,6 @@ export const featured: Featured[] = [
     title: "AI Agents",
     hook: "Built the chat agent for AI customer support.",
     links: [{ label: "assembled.com", href: "https://www.assembled.com" }],
-    glyph: "poke",
-    hue: 250,
   },
   {
     slug: "notion-core-product",
@@ -53,8 +46,6 @@ export const featured: Featured[] = [
       { label: "Business plan launch", href: "https://www.notion.com/blog/notion-introduces-business-plan-and-expanded-free-plan" },
       { label: "Notifications release notes (Feb 2023)", href: "https://www.notion.com/releases/2023-02-09#better-notifications" },
     ],
-    glyph: "use",
-    hue: 33,
   },
   {
     slug: "neopom",
@@ -68,8 +59,6 @@ export const featured: Featured[] = [
       { label: "EnVi Media", href: "https://envimedia.co/three-studying-resources-to-help-k-pop-fans-pass-that-class/" },
       { label: "TikTok", href: "https://www.tiktok.com/@meganomnom_/video/7008039251807915290" },
     ],
-    glyph: "early",
-    hue: 150,
     project: "neopom",
   },
   {
@@ -79,7 +68,5 @@ export const featured: Featured[] = [
     title: "Prime Gaming",
     hook: "Led the frontend redesign of Prime Gaming, and it is still live today.",
     links: [{ label: "Live Prime Gaming claims page", href: "https://luna.amazon.com/claims/home?g=s" }],
-    glyph: "play",
-    hue: 300,
   },
 ];

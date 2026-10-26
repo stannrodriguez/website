@@ -1,35 +1,15 @@
 ---
-import Glyph from "../components/Glyph.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { withBase } from "../lib/url";
 ---
 
 <BaseLayout title="Not found" noindex>
-  <section class="not-found kind-early">
-    <Glyph slug="lost" kind="early" size={96} />
-    <p class="eyebrow">404</p>
-    <h1 class="page-title">Nothing here.</h1>
-    <p>It may have moved when the site was rebuilt. <a href={withBase()}>Back to the projects</a>.</p>
-  </section>
+  <h1>Nothing here.</h1>
+  <p>It may have moved when the site was rebuilt. <a href={withBase()}>Back home</a>.</p>
 </BaseLayout>
 
 <style>
-  .not-found {
-    display: grid;
-    gap: var(--space-s);
-    max-width: var(--measure);
-    padding-top: var(--space-xl);
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .not-found :global(.glyph) {
-      animation: wander 6s ease-in-out infinite alternate;
-    }
-  }
-
-  @keyframes wander {
-    to {
-      rotate: -1turn;
-    }
+  h1 {
+    margin-bottom: var(--space-s);
   }
 </style>
