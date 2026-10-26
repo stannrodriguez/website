@@ -30,7 +30,7 @@ export const projects: Project[] = [
   {
     slug: "nanosecond",
     title: "Nanosecond",
-    summary: "A game for building systems design intuition, starting from physics.",
+    summary: "A game to help build intuition for systems design, starting from physics.",
     topics: ["systems design", "latency", "queueing"],
     stack: ["React", "TypeScript", "Zustand", "Playwright"],
     year: 2026,
@@ -41,7 +41,7 @@ export const projects: Project[] = [
   {
     slug: "spin",
     title: "SPIN",
-    summary: "An interactive explainer of why a spinning ping pong ball curves.",
+    summary: "An interactive page on why spinning ping pong balls curve.",
     topics: ["physics", "table tennis"],
     stack: ["React", "TypeScript", "Tailwind", "Vitest"],
     year: 2026,
@@ -51,7 +51,7 @@ export const projects: Project[] = [
   {
     slug: "aplysium",
     title: "Twenty things we figured out about the mind",
-    summary: "Twenty neuroscience findings that survived replication. Thirteen come with an experiment you can try.",
+    summary: "Neuroscience findings that held up when people tried to replicate them.",
     topics: ["neuroscience", "psychology"],
     stack: ["Astro", "TypeScript", "custom elements"],
     year: 2026,
@@ -61,7 +61,7 @@ export const projects: Project[] = [
   {
     slug: "nightfall",
     title: "Nightfall",
-    summary: "Myths and fables from around the world, each told over three nights.",
+    summary: "Myths and fables from different countries, each told over three nights.",
     topics: ["mythology", "storytelling"],
     stack: ["Astro"],
     year: 2026,
@@ -71,7 +71,7 @@ export const projects: Project[] = [
   {
     slug: "radix",
     title: "Radix",
-    summary: "A herbarium of Latin roots. Take words apart and build new ones.",
+    summary: "A way to learn Latin roots by taking words apart and putting them back together.",
     topics: ["etymology", "spaced repetition"],
     stack: ["HTML", "CSS", "JavaScript"],
     year: 2026,
@@ -81,7 +81,7 @@ export const projects: Project[] = [
   {
     slug: "emotion-atlas",
     title: "Emotion Atlas",
-    summary: "An emotion wheel. Six families bloom into 63 finer feelings.",
+    summary: "An emotion wheel with six main feelings and 63 more specific ones.",
     topics: ["emotions", "language"],
     stack: ["JavaScript", "SVG", "Playwright"],
     year: 2026,
@@ -91,7 +91,7 @@ export const projects: Project[] = [
   {
     slug: "throughline",
     title: "Throughline",
-    summary: "The history of invention along three roads: energy, materials, and information.",
+    summary: "A history of inventions in energy, materials, and information.",
     topics: ["history", "technology"],
     stack: ["Astro", "MDX"],
     year: 2026,
@@ -101,7 +101,7 @@ export const projects: Project[] = [
   {
     slug: "metaphors",
     title: "Metaphors Worth Living By",
-    summary: "Twenty metaphors, how each one works, and where it breaks.",
+    summary: "Everyday metaphors and their limits.",
     topics: ["ideas", "language"],
     stack: ["Astro"],
     year: 2026,
@@ -111,7 +111,7 @@ export const projects: Project[] = [
   {
     slug: "laws-and-adages",
     title: "Laws & Adages",
-    summary: "Twenty eponymous laws, like Goodhart's, on flip cards.",
+    summary: "Twenty laws named after people, like Goodhart's law, as flip cards.",
     topics: ["ideas", "mental models"],
     stack: ["Node", "zero dependencies"],
     year: 2026,
@@ -121,7 +121,7 @@ export const projects: Project[] = [
   {
     slug: "reach",
     title: "Reach",
-    summary: "Mobility and strength routines in 3, 5, 15, or 28 minutes.",
+    summary: "Mobility and strength routines. You can pick 3, 5, 15, or 28 minutes.",
     topics: ["mobility", "fitness"],
     stack: ["HTML", "JavaScript"],
     year: 2026,
@@ -131,25 +131,16 @@ export const projects: Project[] = [
   {
     slug: "sound-physics",
     title: "Sound Physics Visualizer",
-    summary: "Six ways to see sound, from sine waves to the Fourier transform.",
+    summary: "Six visualizations of how sound works, from sine waves to the Fourier transform.",
     topics: ["sound", "signal processing"],
     stack: ["React", "Vite"],
     year: 2024,
     code: gh("sound_viz"),
   },
   {
-    slug: "optical-illusions",
-    title: "Optical Illusion Breaker",
-    summary: "Gray spheres that look colored behind stripes. Toggle the stripes to check.",
-    topics: ["perception", "color"],
-    stack: ["React", "TypeScript"],
-    year: 2024,
-    code: gh("optical_illusions"),
-  },
-  {
     slug: "browser",
     title: "A web browser",
-    summary: "A browser built from scratch, following browser.engineering.",
+    summary: "A web browser I built from scratch, following browser.engineering.",
     topics: ["browsers", "the web"],
     stack: ["Python"],
     year: 2024,
@@ -158,7 +149,7 @@ export const projects: Project[] = [
   {
     slug: "simple-ann",
     title: "A neural network in R",
-    summary: "A simple neural network built from scratch in R.",
+    summary: "A simple neural network I wrote from scratch in R.",
     topics: ["machine learning"],
     stack: ["R"],
     year: 2018,
@@ -177,7 +168,7 @@ export const projects: Project[] = [
   {
     slug: "loan-app",
     title: "LoanApp",
-    summary: "A Flask app that plans how to pay off personal debt.",
+    summary: "A Flask app that makes a plan to pay off personal debt.",
     topics: ["personal finance"],
     stack: ["Python", "Flask"],
     year: 2020,
@@ -186,7 +177,7 @@ export const projects: Project[] = [
   {
     slug: "potato-detector",
     title: "PotatoDetector",
-    summary: "A machine learning app that insists my face is a potato.",
+    summary: "A machine learning app that thinks my face is a potato.",
     topics: ["machine learning", "jokes"],
     stack: ["Python", "Jupyter"],
     year: 2020,
