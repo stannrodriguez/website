@@ -159,18 +159,6 @@ export const projects: Project[] = [
     code: gh("daily-reach"),
   },
   {
-    slug: "dsa-tracker",
-    title: "DSA tracker",
-    summary:
-      "A 28-day data structures and algorithms prep tracker that syncs across devices through one passphrase-gated Supabase row.",
-    kind: "use",
-    topics: ["algorithms", "interview prep"],
-    stack: ["React", "Vite", "Supabase"],
-    year: 2026,
-    live: "https://dsa-tracker-sable-ten.vercel.app",
-    code: gh("dsa-tracker"),
-  },
-  {
     slug: "sound-physics",
     title: "Sound Physics Visualizer",
     summary: "Six views on how sound works, from sine waves and harmonics to the Fourier transform.",
