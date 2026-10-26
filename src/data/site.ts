@@ -13,29 +13,28 @@ export interface ContactLink {
 
 export const site = {
   name: "Stephanie Rodriguez",
-  title: "Stephanie Rodriguez, software engineer",
+  title: "Stephanie Rodriguez",
   description:
-    "Self-taught software engineer. Previously Notion and Amazon. Looking for senior forward-deployed, applied AI, and product engineering roles.",
+    "Software engineer, previously at Notion and Amazon. Small websites and tools about systems, physics, the mind, myth, and language.",
   lang: "en",
 } as const;
 
+/** Paths are relative to the site base. */
 export const nav = [
-  { label: "About", hash: "about" },
-  { label: "Projects", hash: "projects" },
-  { label: "Writing", hash: "writing" },
-  { label: "Contact", hash: "contact" },
+  { label: "Projects", path: "" },
+  { label: "Notes", path: "notes/" },
+  { label: "About", path: "about/" },
 ] as const;
 
 export const contact: ContactLink[] = [
   {
-    label: "Email",
-    todo: "Add the address you want public (a dedicated one is fine).",
-  },
-  {
     label: "GitHub",
     href: "https://github.com/stannrodriguez",
     handle: "stannrodriguez",
-    todo: "Inferred from the old GitHub Pages URL. Confirm this is the profile you want linked.",
+  },
+  {
+    label: "Email",
+    todo: "Add the address you want public (a dedicated one is fine).",
   },
   {
     label: "LinkedIn",

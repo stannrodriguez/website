@@ -7,6 +7,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer meta">
   <p>© {year} {site.name}</p>
   <p>Built with Astro. No trackers, no cookies.</p>
+  <p><a href="#top">Back to top <span aria-hidden="true">↑</span></a></p>
 </footer>
 
 <style>
@@ -15,9 +16,13 @@ const year = new Date().getFullYear();
     flex-wrap: wrap;
     justify-content: space-between;
     gap: var(--space-xs) var(--space-m);
+    width: 100%;
     max-width: var(--page);
-    margin: var(--space-xl) auto 0;
-    padding: var(--space-m);
-    border-top: 1px solid var(--rule);
+    margin: auto auto 0;
+    padding: var(--space-xl) var(--space-m) var(--space-m);
+  }
+
+  a {
+    text-decoration: none;
   }
 </style>

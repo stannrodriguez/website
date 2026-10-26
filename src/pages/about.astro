@@ -1,0 +1,96 @@
+---
+import ContactList from "../components/ContactList.astro";
+import { career, contact } from "../data/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/url";
+---
+
+<BaseLayout title="About">
+  <article class="about">
+    <header>
+      <p class="eyebrow">About</p>
+      <h1 class="page-title">Hi again.</h1>
+    </header>
+
+    <div class="prose">
+      <p>
+        I'm a software engineer. I was on the Core Product team at Notion, and before that I worked on Prime Gaming at
+        Amazon. I started out in finance, as an actuary and then a quantitative analyst.
+      </p>
+      <p>
+        Outside of work I build small sites and tools to learn whatever I'm curious about. Lately that's been systems
+        design, physics, the brain, old myths, and words. They're all on the <a href={withBase()}>projects page</a>.
+      </p>
+      <p>
+        I use a simple test for technology: it should serve a good purpose, and the person using it should come away
+        better for it.
+      </p>
+    </div>
+
+    <section aria-labelledby="work-heading">
+      <h2 id="work-heading" class="eyebrow">Where I've worked</h2>
+      <ul class="career" role="list">
+        {
+          career.map((item) => (
+            <li>
+              <span class="org">{item.org}</span>
+              <span class="meta">{item.role}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section aria-labelledby="elsewhere-heading">
+      <h2 id="elsewhere-heading" class="eyebrow">Elsewhere</h2>
+      <ContactList links={contact} />
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .about {
+    display: grid;
+    gap: var(--space-l);
+    max-width: var(--measure);
+    padding-top: var(--space-xl);
+  }
+
+  header {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .prose {
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  section {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .career {
+    display: grid;
+    padding: 0;
+    list-style: none;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .career li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 var(--space-s);
+    padding-block: var(--space-xs);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .org {
+    font-size: var(--step-1);
+    font-weight: 600;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+  }
+</style>

@@ -22,7 +22,7 @@ const { Content } = await render(note);
   <article class="note">
     <header class="note-header">
       <p class="meta">
-        <a href={`${withBase()}#writing`}>← Writing</a>
+        <a href={withBase("notes/")}>← Notes</a>
       </p>
       <h1>
         {note.data.title}
@@ -54,8 +54,9 @@ const { Content } = await render(note);
 
   h1 {
     font-size: var(--step-3);
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-weight: 480;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+    letter-spacing: -0.03em;
   }
 
   .meta a {
