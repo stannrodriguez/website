@@ -1,9 +1,9 @@
 ---
 /**
- * A large card for the featured work at the top of the home page: hook,
- * highlights, a row of metrics, and, where there is any, a press strip. The
- * corners carry printer's registration marks, which turn when you hover the
- * card. Each card takes its color from its own hue.
+ * A large card for the featured work at the top of the home page: name, role,
+ * one sentence, and links. The corners carry printer's registration marks,
+ * which turn when you hover the card. Each card takes its color from its own
+ * hue.
  */
 import type { Featured } from "../data/featured";
 import Glyph from "./Glyph.astro";
@@ -14,15 +14,9 @@ interface Props {
   number: number;
 }
 
-/** Highlights past this many fold into a "More" disclosure. */
-const SHOWN = 4;
-
 const { item: f, number } = Astro.props;
 const href = f.links[0]?.href;
 const no = String(number).padStart(2, "0");
-const shown = f.bullets.slice(0, SHOWN);
-const more = f.bullets.slice(SHOWN);
-const hasPress = (f.press?.length ?? 0) > 0 || f.social;
 ---
 
 <li class="featured-card kind-featured" style={`--i: ${number}; --h: ${f.hue}`}>
@@ -49,101 +43,18 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
       </div>
 
       <p class="hook">{f.hook}</p>
+    </div>
 
-      <ul class="bullets" role="list">
-        {shown.map((b) => <li>{b}</li>)}
-      </ul>
+    <p class="links meta">
       {
-        more.length > 0 && (
-          <details class="more">
-            <summary class="meta">{more.length} more</summary>
-            <ul class="bullets" role="list">
-              {more.map((b) => <li>{b}</li>)}
-            </ul>
-          </details>
-        )
+        f.links.map((l) => (
+          <a href={l.href}>
+            {l.label}
+            <span aria-hidden="true"> ↗</span>
+          </a>
+        ))
       }
-    </div>
-
-    {
-      (f.metrics.length > 0 || f.flag) && (
-        <div class="side">
-          {f.flag && (
-            <p class="flag meta">
-              <span class="pulse" aria-hidden="true" />
-              {f.flag}
-            </p>
-          )}
-          {f.metrics.length > 0 && (
-            <dl class="metrics">
-              {f.metrics.map((m) => (
-                <div>
-                  <dt>{m.label}</dt>
-                  <dd>{m.value}</dd>
-                </div>
-              ))}
-            </dl>
-          )}
-        </div>
-      )
-    }
-
-    {
-      hasPress && (
-        <div class="press">
-          <p class="eyebrow">In the press</p>
-          <div class="press-grid">
-            {f.press?.map((p) => (
-              <figure class="quote">
-                <blockquote cite={p.href}>
-                  <p>“{p.quote}”</p>
-                </blockquote>
-                <figcaption class="meta">
-                  <a href={p.href}>{p.source}</a>
-                  {p.date && <> · {p.date}</>}
-                  <span class="credit">{p.credit}</span>
-                </figcaption>
-              </figure>
-            ))}
-            {f.social && (
-              <figure class="quote social">
-                <blockquote cite={f.social.href}>
-                  <p>“{f.social.caption}”</p>
-                </blockquote>
-                <dl class="stats meta">
-                  {f.social.stats.map((s) => (
-                    <div>
-                      <dt>{s.label}</dt>
-                      <dd>{s.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-                {f.social.note && <p class="note">{f.social.note}</p>}
-                <figcaption class="meta">
-                  <a href={f.social.href}>
-                    {f.social.source} by {f.social.handle}
-                  </a>
-                </figcaption>
-              </figure>
-            )}
-          </div>
-        </div>
-      )
-    }
-
-    <div class="foot">
-      {f.stack && <p class="stack meta">{f.stack.join(" · ")}</p>}
-      <p class="links meta">
-        {
-          f.links.map((l) => (
-            <a href={l.href}>
-              {l.label}
-              <span aria-hidden="true"> ↗</span>
-            </a>
-          ))
-        }
-      </p>
-    </div>
+    </p>
   </article>
 </li>
 
@@ -180,16 +91,9 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
     rotate: 45deg;
   }
 
-  /* One column on phones; on wide screens the metrics sit beside the text. */
   article {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas:
-      "top"
-      "main"
-      "side"
-      "press"
-      "foot";
+    align-content: start;
     gap: var(--space-m);
     height: 100%;
     padding: var(--space-m);
@@ -200,13 +104,6 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
 
   @media (min-width: 52rem) {
     article {
-      grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
-      grid-template-areas:
-        "top top"
-        "main side"
-        "press press"
-        "foot foot";
-      column-gap: var(--space-l);
       padding: var(--space-l);
     }
   }
@@ -226,10 +123,6 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
     .featured-card:focus-within :global(.glyph) {
       animation: spin 9s linear infinite;
     }
-
-    .pulse {
-      animation: pulse 2.4s var(--ease-out) infinite;
-    }
   }
 
   @keyframes rise {
@@ -245,17 +138,7 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
     }
   }
 
-  @keyframes pulse {
-    from {
-      box-shadow: 0 0 0 0 color-mix(in oklch, var(--k) 55%, transparent);
-    }
-    to {
-      box-shadow: 0 0 0 0.6em transparent;
-    }
-  }
-
   .top {
-    grid-area: top;
     display: flex;
     justify-content: space-between;
     gap: var(--space-xs);
@@ -269,8 +152,7 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
     color: var(--k);
   }
 
-  .dot,
-  .pulse {
+  .dot {
     width: 0.55em;
     height: 0.55em;
     border-radius: 50%;
@@ -278,7 +160,6 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
   }
 
   .main {
-    grid-area: main;
     display: grid;
     align-content: start;
     gap: var(--space-s);
@@ -332,185 +213,13 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
     line-height: 1.4;
   }
 
-  .bullets {
-    display: grid;
-    gap: var(--space-xs);
-    max-width: 38em;
-    padding: 0;
-    color: color-mix(in oklch, var(--ink) 85%, var(--paper));
-    font-size: var(--step--1);
-    line-height: 1.5;
-  }
-
-  .bullets li {
-    position: relative;
-    padding-left: 1.25em;
-    list-style: none;
-  }
-
-  .bullets li::before {
-    content: "";
-    position: absolute;
-    top: 0.72em;
-    left: 0;
-    width: 0.6em;
-    height: 1px;
-    background: var(--k);
-  }
-
-  .more {
-    position: relative;
-    z-index: 2;
-  }
-
-  .more summary {
-    width: fit-content;
-    font-size: var(--step--2);
-    cursor: pointer;
-  }
-
-  .more summary:hover {
-    color: var(--k);
-  }
-
-  .more .bullets {
-    margin-top: var(--space-xs);
-  }
-
-  .side {
-    grid-area: side;
-    display: grid;
-    align-content: start;
-    gap: var(--space-s);
-  }
-
-  .flag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em;
-    width: fit-content;
-    padding: 0.3em 0.8em;
-    border: 1px solid color-mix(in oklch, var(--k) 40%, var(--rule));
-    border-radius: 999px;
-    background: var(--wash);
-    color: var(--k);
-    font-size: var(--step--2);
-  }
-
-  /* Metrics: hairline-ruled cells, big number over a small label. */
-  .metrics {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
-    border-top: 1px solid var(--ink);
-  }
-
-  .metrics > div {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: start;
-    gap: var(--space-2xs);
-    padding: var(--space-s) var(--space-xs) var(--space-s) 0;
-    border-bottom: 1px dashed var(--rule);
-  }
-
-  .metrics dd {
-    color: var(--k);
-    font-size: var(--step-2);
-    font-weight: 520;
-    font-variation-settings: "SOFT" 100, "WONK" 1;
-    font-variant-numeric: lining-nums;
-    letter-spacing: -0.02em;
-    line-height: 1;
-  }
-
-  .metrics dt {
-    color: var(--ink-muted);
-    font-size: var(--step--2);
-    line-height: 1.4;
-  }
-
-  @media (min-width: 52rem) {
-    .metrics {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  /* Press strip: a tinted band of quotes across the card. */
-  .press {
-    grid-area: press;
-    display: grid;
-    gap: var(--space-s);
-    padding-top: var(--space-m);
-    border-top: 1px solid var(--rule);
-  }
-
-  .press-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-    gap: var(--space-s);
-  }
-
-  .quote {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-    padding: var(--space-s);
-    border-left: 2px solid var(--k);
-    background: color-mix(in oklch, var(--wash) 60%, transparent);
-  }
-
-  blockquote {
-    font-size: var(--step-0);
-    font-style: italic;
-    line-height: 1.45;
-  }
-
-  .social blockquote {
-    font-size: var(--step-1);
-  }
-
-  .quote figcaption {
-    display: grid;
-    gap: 0.15em;
-    margin-top: auto;
-    font-size: var(--step--2);
-  }
-
-  .credit {
-    line-height: 1.4;
-  }
-
-  .stats {
+  .links {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-s);
-  }
-
-  .stats > div {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 0.4em;
-  }
-
-  .stats dd {
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  .stats dt,
-  .stats dd {
+    gap: var(--space-2xs) var(--space-s);
     font-size: var(--step--2);
   }
 
-  .note {
-    color: color-mix(in oklch, var(--ink) 80%, var(--paper));
-    font-size: var(--step--1);
-    line-height: 1.45;
-  }
-
-  .quote a,
   .links a {
     position: relative;
     z-index: 2;
@@ -518,26 +227,8 @@ const hasPress = (f.press?.length ?? 0) > 0 || f.social;
     text-decoration-color: var(--rule-strong);
   }
 
-  .quote a:hover,
   .links a:hover {
     color: var(--k);
     text-decoration-color: currentColor;
-  }
-
-  .foot {
-    grid-area: foot;
-    display: grid;
-    gap: var(--space-2xs);
-  }
-
-  .stack {
-    font-size: var(--step--2);
-  }
-
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2xs) var(--space-s);
-    font-size: var(--step--2);
   }
 </style>
