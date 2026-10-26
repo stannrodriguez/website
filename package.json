@@ -16,7 +16,6 @@
     "deploy": "gh-pages -d dist --dotfiles"
   },
   "dependencies": {
-    "@fontsource/instrument-serif": "^5.3.0",
     "astro": "^5.18.2"
   },
   "devDependencies": {

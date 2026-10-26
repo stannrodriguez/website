@@ -1,14 +1,13 @@
 /*
  * Design tokens + base typography.
  *
- * System sans for text, Instrument Serif for the h1 and the site name, one
+ * System sans for text, one
  * narrow column, plain colors. Anything else has to earn its place.
  */
 
 :root {
   /* Type */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Instrument Serif", Georgia, serif;
 
   --step--2: 0.75rem;
   --step--1: 0.875rem;
@@ -100,7 +99,7 @@ h3 {
 }
 
 h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: var(--step-3);
   font-weight: 400;
   letter-spacing: -0.01em;
