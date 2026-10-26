@@ -10,7 +10,7 @@ const { project: p } = Astro.props;
 const href = p.live ?? p.code;
 ---
 
-<li class="project">
+<li class="row project">
   <h3>
     {href ? <a href={href}>{p.title}</a> : p.title}
     {p.year && <span class="muted"> {p.year}</span>}
@@ -26,12 +26,30 @@ const href = p.live ?? p.code;
     }
     {p.todo && <span class="todo">TODO</span>}
   </h3>
-  <p>{p.summary}</p>
-  {p.status && <p class="muted note">{p.status}</p>}
-  {p.todo && <p class="muted note">{p.todo}</p>}
+  <div>
+    <p>{p.summary}</p>
+    {p.status && <p class="muted note">{p.status}</p>}
+    {p.todo && <p class="muted note">{p.todo}</p>}
+  </div>
 </li>
 
 <style>
+  /* The hover wash bleeds past the column; matching padding keeps the text still. */
+  .project {
+    margin-inline: calc(-1 * var(--space-xs));
+    padding-inline: var(--space-xs);
+    border-radius: 6px;
+    transition: background-color 150ms ease;
+  }
+
+  .project:hover {
+    background-color: color-mix(in srgb, var(--ink) 4%, transparent);
+  }
+
+  h3 {
+    font-weight: 500;
+  }
+
   h3 .muted {
     font-weight: 400;
     font-size: var(--step--1);

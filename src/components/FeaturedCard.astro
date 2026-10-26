@@ -1,17 +1,23 @@
 ---
-/** One featured item on the home page: name, role, one sentence, and links. */
+/** One featured item on the home page: logo, name, role, one sentence, and links. */
 import type { Featured } from "../data/featured";
+import { withBase } from "../lib/url";
 
 interface Props {
   item: Featured;
 }
 
 const { item: f } = Astro.props;
+/** The org only shows when the title doesn't already say it. */
+const meta = f.org === f.title ? f.role : `${f.org} · ${f.role}`;
 ---
 
 <li>
-  <h3>{f.title}</h3>
-  <p class="muted small">{f.org} · {f.role}</p>
+  <h3>
+    {f.logo && <img class="logo" src={withBase(f.logo)} alt="" width="16" height="16" />}
+    <span class="title">{f.title}</span>
+    <span class="muted meta">· {meta}</span>
+  </h3>
   <p>{f.hook}</p>
   <p class="small">
     {
@@ -26,6 +32,22 @@ const { item: f } = Astro.props;
 </li>
 
 <style>
+  h3 {
+    font-weight: 400;
+  }
+
+  .logo {
+    display: inline-block;
+    margin-right: 0.375rem;
+    vertical-align: -0.15em;
+    border-radius: 3px;
+  }
+
+  .title {
+    font-weight: 500;
+  }
+
+  .meta,
   .small {
     font-size: var(--step--1);
   }

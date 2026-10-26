@@ -35,8 +35,12 @@ import { withBase } from "../lib/url";
     <ul role="list">
       {
         career.map((item) => (
-          <li>
-            {item.org} <span class="muted">· {item.role} · {item.dates}</span>
+          <li class="row">
+            <span>{item.org}</span>
+            <span class="role">
+              <span>{item.role}</span>
+              <span class="muted dates">{item.dates}</span>
+            </span>
           </li>
         ))
       }
@@ -51,7 +55,7 @@ import { withBase } from "../lib/url";
 
 <style>
   h1 {
-    margin-bottom: var(--space-m);
+    margin-bottom: var(--space-s);
   }
 
   .prose > * + * {
@@ -62,9 +66,14 @@ import { withBase } from "../lib/url";
     margin-top: var(--space-xl);
   }
 
-  h2 {
-    margin-bottom: var(--space-s);
-    color: var(--ink-muted);
-    font-weight: 400;
+  .role {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-s);
+  }
+
+  .dates {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
   }
 </style>

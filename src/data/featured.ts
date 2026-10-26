@@ -21,6 +21,8 @@ export interface Featured {
   /** One short, plain sentence. */
   hook: string;
   links: Link[];
+  /** Favicon in public/logos/, shown at 16px before the title. */
+  logo?: string;
   /** A project in projects.ts this entry stands for; it's left out of the project list below. */
   project?: string;
 }
@@ -32,6 +34,7 @@ export const featured: Featured[] = [
     role: "Software Engineer, AI Agents · San Francisco",
     title: "Assembled",
     hook: "Built the chat agent for AI customer support.",
+    logo: "logos/assembled.png",
     links: [{ label: "assembled.com", href: "https://www.assembled.com" }],
   },
   {
@@ -40,6 +43,7 @@ export const featured: Featured[] = [
     role: "Software Engineer, Core Product",
     title: "Notion",
     hook: "Built workspace and collaboration features, like the sidebar, sharing, and permissions.",
+    logo: "logos/notion.ico",
     links: [
       { label: "Sidebar", href: "https://www.notion.com/help/navigate-with-the-sidebar" },
       { label: "Teamspaces", href: "https://www.notion.com/help/guides/teamspaces-give-teams-home-for-important-work" },
@@ -59,6 +63,7 @@ export const featured: Featured[] = [
       { label: "EnVi Media", href: "https://envimedia.co/three-studying-resources-to-help-k-pop-fans-pass-that-class/" },
       { label: "TikTok", href: "https://www.tiktok.com/@meganomnom_/video/7008039251807915290" },
     ],
+    logo: "logos/neopom.ico",
     project: "neopom",
   },
   {
@@ -67,6 +72,7 @@ export const featured: Featured[] = [
     role: "Software Development Engineer",
     title: "Prime Gaming",
     hook: "Led the frontend redesign of gaming.amazon.com.",
+    logo: "logos/primegaming.ico",
     links: [{ label: "Claims page", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
 ];

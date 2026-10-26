@@ -1,4 +1,5 @@
 ---
+import "@fontsource/instrument-serif/400.css";
 import "../styles/global.css";
 
 import Footer from "../components/Footer.astro";
@@ -65,7 +66,7 @@ const canonical = new URL(pathname, Astro.site);
     width: 100%;
     max-width: calc(var(--measure) + 2 * var(--space-m));
     margin-inline: auto;
-    padding: var(--space-l) var(--space-m) var(--space-xl);
+    padding: var(--space-xl) var(--space-m);
   }
 
   main:focus {

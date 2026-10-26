@@ -22,14 +22,14 @@ const orgs = new Intl.ListFormat("en", { type: "conjunction" }).format(career.fi
 
   <section aria-labelledby="featured-heading">
     <h2 id="featured-heading">Featured</h2>
-    <ul class="list" role="list">
+    <ul class="featured" role="list">
       {featured.map((f) => <FeaturedCard item={f} />)}
     </ul>
   </section>
 
   <section aria-labelledby="projects-heading">
     <h2 id="projects-heading">Projects</h2>
-    <ul class="list" role="list">
+    <ul role="list">
       {rest.map((p) => <ProjectRow project={p} />)}
     </ul>
   </section>
@@ -45,14 +45,8 @@ const orgs = new Intl.ListFormat("en", { type: "conjunction" }).format(career.fi
     gap: var(--space-s);
   }
 
-  h2 {
-    margin-bottom: var(--space-m);
-    color: var(--ink-muted);
-    font-weight: 400;
-  }
-
-  .list {
+  .featured {
     display: grid;
-    gap: var(--space-m);
+    gap: var(--space-s);
   }
 </style>

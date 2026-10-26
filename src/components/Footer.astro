@@ -6,7 +6,27 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer muted">
   <p>© {year} {site.name}</p>
+  <!-- Filled in by the script below; without JS it stays hidden. -->
+  <p class="la-time" hidden>Los Angeles <time data-la-time></time></p>
 </footer>
+
+<script is:inline>
+  (() => {
+    const el = document.querySelector("[data-la-time]");
+    if (!el) return;
+    const fmt = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Los_Angeles",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+    const tick = () => {
+      el.textContent = fmt.format(new Date());
+      setTimeout(tick, 60000 - (Date.now() % 60000));
+    };
+    tick();
+    el.parentElement.hidden = false;
+  })();
+</script>
 
 <style>
   .site-footer {
@@ -14,6 +34,18 @@ const year = new Date().getFullYear();
     max-width: calc(var(--measure) + 2 * var(--space-m));
     margin: auto auto 0;
     padding: var(--space-m);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-s);
     font-size: var(--step--1);
+  }
+
+  .la-time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .la-time[hidden] {
+    display: none;
   }
 </style>

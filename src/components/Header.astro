@@ -35,12 +35,22 @@ const isCurrent = (path: string) => {
     width: 100%;
     max-width: calc(var(--measure) + 2 * var(--space-m));
     margin-inline: auto;
-    padding: var(--space-l) var(--space-m) 0;
+    padding: var(--space-xl) var(--space-m) 0;
+  }
+
+  @media (min-width: 560px) {
+    .site-header {
+      padding-top: var(--space-2xl);
+    }
   }
 
   .name {
     margin-right: auto;
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: var(--step-3);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
     text-decoration: none;
   }
 
