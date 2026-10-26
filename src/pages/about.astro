@@ -36,11 +36,10 @@ import { withBase } from "../lib/url";
       {
         career.map((item) => (
           <li class="row">
-            <span>{item.org}</span>
-            <span class="role">
-              <span>{item.role}</span>
-              <span class="muted dates">{item.dates}</span>
+            <span class="row-text">
+              {item.org} <span class="muted">· {item.role}</span>
             </span>
+            <span class="row-date">{item.dates}</span>
           </li>
         ))
       }
@@ -64,16 +63,5 @@ import { withBase } from "../lib/url";
 
   section {
     margin-top: var(--space-xl);
-  }
-
-  .role {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-s);
-  }
-
-  .dates {
-    flex-shrink: 0;
-    font-variant-numeric: tabular-nums;
   }
 </style>

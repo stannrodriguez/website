@@ -12,12 +12,10 @@ const { item: f } = Astro.props;
 const meta = f.org === f.title ? f.role : `${f.org} · ${f.role}`;
 ---
 
-<li>
-  <h3>
-    {f.logo && <img class="logo" src={withBase(f.logo)} alt="" width="16" height="16" />}
-    <span class="title">{f.title}</span>
-    <span class="muted meta">· {meta}</span>
-  </h3>
+<li class="feat">
+  {f.logo && <img class="logo" src={withBase(f.logo)} alt="" width="16" height="16" />}
+  <h3>{f.title}</h3>
+  <p class="muted small">{meta}</p>
   <p>{f.hook}</p>
   <p class="small">
     {
@@ -32,22 +30,29 @@ const meta = f.org === f.title ? f.role : `${f.org} · ${f.role}`;
 </li>
 
 <style>
-  h3 {
-    font-weight: 400;
+  /* The logo hangs in the left margin so the text stays on the shared edge. */
+  .feat {
+    position: relative;
   }
 
   .logo {
-    display: inline-block;
-    margin-right: 0.375rem;
-    vertical-align: -0.15em;
+    position: absolute;
+    left: -1.75rem;
+    top: 0.3em;
     border-radius: 3px;
   }
 
-  .title {
-    font-weight: 500;
+  @media (max-width: 639.98px) {
+    .logo {
+      display: none;
+    }
   }
 
-  .meta,
+  h3 {
+    font-weight: 500;
+    line-height: inherit;
+  }
+
   .small {
     font-size: var(--step--1);
   }

@@ -1,5 +1,5 @@
 ---
-/** One project: title (linked to the live site, else the code), year, and one line. */
+/** One project: title (linked to the live site, else the code), one line, and the year on the right. */
 import type { Project } from "../data/projects";
 
 interface Props {
@@ -11,33 +11,33 @@ const href = p.live ?? p.code;
 ---
 
 <li class="row project">
-  <h3>
-    {href ? <a href={href}>{p.title}</a> : p.title}
-    {p.year && <span class="muted"> {p.year}</span>}
-    {
-      p.live && p.code && (
-        <span class="muted">
-          {" · "}
-          <a href={p.code}>
-            code<span class="visually-hidden"> for {p.title}</span>
-          </a>
-        </span>
-      )
-    }
-    {p.todo && <span class="todo">TODO</span>}
-  </h3>
-  <div>
-    <p>{p.summary}</p>
-    {p.status && <p class="muted note">{p.status}</p>}
-    {p.todo && <p class="muted note">{p.todo}</p>}
+  <div class="row-text">
+    <p>
+      {href ? <a href={href}>{p.title}</a> : p.title}
+      <span class="muted"> · {p.summary}</span>
+      {
+        p.live && p.code && (
+          <>
+            {" "}
+            <a class="muted small" href={p.code}>
+              code<span class="visually-hidden"> for {p.title}</span>
+            </a>
+          </>
+        )
+      }
+      {p.todo && <span class="todo">TODO</span>}
+    </p>
+    {p.status && <p class="muted small">{p.status}</p>}
+    {p.todo && <p class="muted small">{p.todo}</p>}
   </div>
+  {p.year && <span class="row-date">{p.year}</span>}
 </li>
 
 <style>
   /* The hover wash bleeds past the column; matching padding keeps the text still. */
   .project {
-    margin-inline: calc(-1 * var(--space-xs));
-    padding-inline: var(--space-xs);
+    margin-inline: -0.375rem;
+    padding-inline: 0.375rem;
     border-radius: 6px;
     transition: background-color 150ms ease;
   }
@@ -46,20 +46,11 @@ const href = p.live ?? p.code;
     background-color: color-mix(in srgb, var(--ink) 4%, transparent);
   }
 
-  h3 {
-    font-weight: 500;
-  }
-
-  h3 .muted {
-    font-weight: 400;
+  .small {
     font-size: var(--step--1);
   }
 
-  .muted a {
-    color: inherit;
-  }
-
-  .note {
-    font-size: var(--step--1);
+  a.muted {
+    color: var(--ink-muted);
   }
 </style>
