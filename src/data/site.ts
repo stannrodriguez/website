@@ -3,8 +3,6 @@
  * until Stephanie fills it in. See REBUILD_NOTES.md.
  */
 
-import { withBase } from "../lib/url";
-
 export interface ContactLink {
   label: string;
   /** Omit until the real URL is known; the link renders as plain text. */

@@ -1,12 +1,12 @@
 /**
- * The three large cards at the top of the home page. Order here is display
- * order.
+ * The large cards at the top of the home page. Order here is display order.
  *
  * Every line comes from ~/.featured_brief.md (Notion Career History, the
- * résumé, and the press pieces linked below). Things the brief flags, kept on
- * purpose: Stephanie joined Notion Home partway through, so it says "built",
- * never "led"; Neopom has no year; the TikTok comment is paraphrased, never
- * quoted, because its exact wording isn't verified.
+ * résumé, and the press pieces linked below); the Assembled card comes from
+ * the résumé alone, so add nothing to it that isn't there. Things the brief
+ * flags, kept on purpose: Stephanie joined Notion Home partway through, so it
+ * says "built", never "led"; Neopom has no year; the TikTok comment is
+ * paraphrased, never quoted, because its exact wording isn't verified.
  */
 
 import type { Kind } from "./projects";
@@ -64,6 +64,30 @@ export interface Featured {
 }
 
 export const featured: Featured[] = [
+  {
+    slug: "assembled-ai-agents",
+    org: "Assembled",
+    role: "Software Engineer, AI Agents · San Francisco",
+    title: "AI Agents",
+    hook: "Shipped four AI agent products (Copilot, Email, Voice, and Chat) as AI Agents ARR grew from $1M to $5.5M.",
+    bullets: [
+      "Shipped full-stack product and infrastructure in Go and TypeScript for customers including Canva, Squarespace, and Rover.",
+      "Built Chat Agent from prototype to production as one of two engineers: customer-context grounding, live handoff, chat configuration, and wrap-up workflows.",
+      "Tech lead for MCP and database connectors that let agents call customer tools and query Snowflake, Databricks, Postgres, and Redshift. Designed read-only SQL enforcement, row limits, and timeouts; shipped to all customers.",
+      "Raised escalation-detection accuracy from 28% to 90% for an enterprise support agent by building golden datasets and an eval pipeline.",
+      "Kept four production agent products growing on a three-person team after engineering consolidated from 17 to 3.",
+      "Taught myself Swift and Kotlin to build and publish iOS and Android chat SDKs.",
+    ],
+    metrics: [
+      { value: "$1M → $5.5M", label: "AI Agents ARR" },
+      { value: "28% → 90%", label: "escalation-detection accuracy" },
+      { value: "4", label: "AI agent products" },
+    ],
+    stack: ["Go", "TypeScript", "Swift", "Kotlin"],
+    links: [{ label: "assembled.com", href: "https://www.assembled.com" }],
+    glyph: "poke",
+    hue: 250,
+  },
   {
     slug: "notion-core-product",
     org: "Notion",
