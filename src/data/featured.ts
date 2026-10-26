@@ -36,7 +36,7 @@ export const featured: Featured[] = [
     org: "Assembled",
     role: "Software Engineer, AI Agents · San Francisco",
     title: "AI Agents",
-    hook: "Built AI agents for customer support: chat, email, voice, and copilot.",
+    hook: "Built the chat agent for AI customer support.",
     links: [{ label: "assembled.com", href: "https://www.assembled.com" }],
     glyph: "poke",
     hue: 250,
