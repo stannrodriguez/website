@@ -71,7 +71,7 @@ export const featured: Featured[] = [
     org: "Amazon",
     role: "Software Development Engineer",
     title: "Prime Gaming",
-    hook: "Led the frontend redesign of gaming.amazon.com.",
+    hook: "Led the redesign of gaming.amazon.com, built tools for localization, country launches, and A/B testing, and maintained core web systems and a GraphQL API gateway.",
     logo: "logos/primegaming.ico",
     links: [{ label: "Prime Gaming", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
