@@ -4,7 +4,7 @@ import { withBase } from "../lib/url";
 import Glyph from "./Glyph.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
-// Highlight the section you're in: notes pages count as "Notes".
+// Highlight the section you're in.
 const here = Astro.url.pathname.replace(/\/?$/, "/");
 const isCurrent = (path: string) => {
   const target = withBase(path);

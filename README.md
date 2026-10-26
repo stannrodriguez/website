@@ -9,4 +9,4 @@ npm run build    # type-check + static build to dist/
 npm run deploy   # publish dist/ to the gh-pages branch
 ```
 
-Content lives in `src/data/` (site info, projects) and `src/content/notes/` (writing). See [REBUILD_NOTES.md](REBUILD_NOTES.md) for design decisions and open TODOs.
+Content lives in `src/data/` (site info, projects). See [REBUILD_NOTES.md](REBUILD_NOTES.md) for design decisions and open TODOs.

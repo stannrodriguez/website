@@ -3,7 +3,6 @@ import "@fontsource-variable/fraunces/full.css";
 import "@fontsource-variable/fraunces/full-italic.css";
 import "@fontsource-variable/jetbrains-mono/wght.css";
 import "../styles/global.css";
-import "../styles/prose.css";
 
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -13,12 +12,11 @@ import { withBase } from "../lib/url";
 interface Props {
   title?: string;
   description?: string;
-  type?: "website" | "article";
   /** For pages like 404 that shouldn't be indexed or have a canonical URL. */
   noindex?: boolean;
 }
 
-const { title, description = site.description, type = "website", noindex = false } = Astro.props;
+const { title, description = site.description, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : site.title;
 // Pages build as directories, so canonical URLs always end in a slash.
 const pathname = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
@@ -36,7 +34,7 @@ const canonical = new URL(pathname, Astro.site);
     <link rel="icon" href={withBase("favicon.svg")} type="image/svg+xml" />
     <meta name="color-scheme" content="light dark" />
 
-    <meta property="og:type" content={type} />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />

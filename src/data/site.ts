@@ -22,7 +22,6 @@ export const site = {
 /** Paths are relative to the site base. */
 export const nav = [
   { label: "Projects", path: "" },
-  { label: "Notes", path: "notes/" },
   { label: "About", path: "about/" },
 ] as const;
 
