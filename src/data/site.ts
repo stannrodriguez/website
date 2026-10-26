@@ -44,11 +44,6 @@ export const contact: ContactLink[] = [
     href: "https://www.linkedin.com/in/stephanie-ann-rodriguez",
     handle: "stephanie-ann-rodriguez",
   },
-  {
-    label: "Résumé",
-    href: withBase("resume.pdf"),
-    handle: "PDF",
-  },
 ];
 
 export interface Role {
