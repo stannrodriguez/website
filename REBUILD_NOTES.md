@@ -14,6 +14,16 @@ npm run deploy    # builds, then publishes dist/ to the gh-pages branch (pushes 
 
 Node 20.3 or newer works. See the upgrade TODO below.
 
+## Simplicity pass
+
+Modeled on the feel of wustep.me: mostly text, one narrow column, calm type, lots of whitespace. This supersedes the visual design described in every section below, so read those as history.
+
+- **Type and color.** One system sans font with no webfonts, white paper and near-black ink, and dark mode that follows the system. There's no theme toggle, grain, mono labels, kind hues, or view transitions.
+- **Home.** A short intro and one muted line of past employers, then "Featured" (Assembled, Notion, Neopom, Prime Gaming) and "Projects" as plain lists. Each entry is a title, a muted line, one sentence, and links. Cards, crosshairs, glyphs, numbering, filters, tags, and the springy headline are gone, along with `kind`/`kinds`, `glyph`, and `hue` from the data. `topics` and `stack` stay in `projects.ts` but aren't shown.
+- **About.** One column: prose, then work and contact as plain lists.
+- **Copy.** Featured sentences, link labels, and project summaries were cut to their core clause. Words were only removed, and no facts were added. The Assembled line says only "Built the chat agent for AI customer support."
+- **Checked by eye** at 1440px (home) and 390px (About), light mode only.
+
 ## Featured pass
 
 "Start here" now holds exactly three cards, in this order: **Notion** (Core Product, workspace & collaboration), **Neopom**, and **Amazon Prime Gaming**. Nanosecond and SPIN went back into the index.
