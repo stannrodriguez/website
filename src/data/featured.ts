@@ -39,7 +39,7 @@ export const featured: Featured[] = [
     org: "Notion",
     role: "Software Engineer, Core Product",
     title: "Notion",
-    hook: "Worked on the sidebar, sharing, permissions, notifications, and Home.",
+    hook: "Built workspace and collaboration features, like the sidebar, sharing, and permissions.",
     links: [
       { label: "Sidebar", href: "https://www.notion.com/help/navigate-with-the-sidebar" },
       { label: "Teamspaces", href: "https://www.notion.com/help/guides/teamspaces-give-teams-home-for-important-work" },
@@ -66,7 +66,7 @@ export const featured: Featured[] = [
     org: "Amazon",
     role: "Software Development Engineer",
     title: "Prime Gaming",
-    hook: "Led the frontend redesign of gaming.amazon.com and its homepage.",
+    hook: "Led the frontend redesign of gaming.amazon.com.",
     links: [{ label: "Claims page", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
 ];
