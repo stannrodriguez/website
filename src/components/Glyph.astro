@@ -1,0 +1,34 @@
+---
+import type { Kind } from "../data/projects";
+import { glyph } from "../lib/glyph";
+
+interface Props {
+  slug: string;
+  kind: Kind;
+  size?: number;
+}
+
+const { slug, kind, size = 56 } = Astro.props;
+const shapes = glyph(slug, kind);
+---
+
+<svg class="glyph" width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  {shapes.map((s) => <path d={s.d} transform={s.transform} class={s.filled ? "filled" : undefined} />)}
+</svg>
+
+<style>
+  .glyph {
+    flex: none;
+    overflow: visible;
+    fill: none;
+    stroke: var(--k, currentColor);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform-origin: 50% 50%;
+  }
+
+  .filled {
+    fill: var(--k, currentColor);
+  }
+</style>

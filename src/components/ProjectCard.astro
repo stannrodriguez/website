@@ -1,0 +1,247 @@
+---
+import { kinds, type Project } from "../data/projects";
+import { seeded } from "../lib/glyph";
+import Glyph from "./Glyph.astro";
+
+interface Props {
+  project: Project;
+  /** 1-based position in the full list; shown as the specimen number. */
+  number: number;
+  wide?: boolean;
+}
+
+const { project: p, number, wide = false } = Astro.props;
+const href = p.live ?? p.code;
+// A small, stable lean for the hover "pick up" so cards don't all move alike.
+const tilt = ((seeded(p.slug)() - 0.5) * 2.4).toFixed(2);
+const no = String(number).padStart(2, "0");
+---
+
+<li
+  class:list={["card", `kind-${p.kind}`, { wide }]}
+  data-kind={p.kind}
+  style={`--i: ${number}; --tilt: ${tilt}deg; view-transition-name: card-${p.slug};`}
+>
+  <article aria-labelledby={`${p.slug}-title`}>
+    <div class="top">
+      <span class="eyebrow">No. {no}{p.year && ` · ${p.year}`}</span>
+      <span class="pill">{kinds[p.kind].label}</span>
+    </div>
+
+    <Glyph slug={p.slug} kind={p.kind} size={wide ? 84 : 60} />
+
+    <h3 id={`${p.slug}-title`} class="title">
+      {href ? <a class="card-link" href={href}>{p.title}</a> : p.title}
+      {p.todo && <span class="todo">TODO</span>}
+    </h3>
+
+    <p class="summary">{p.summary}</p>
+    {p.status && <p class="status meta">{p.status}</p>}
+    {p.todo && <p class="todo-note meta">{p.todo}</p>}
+
+    <div class="foot">
+      {p.topics.length > 0 && <p class="topics">{p.topics.join(", ")}</p>}
+      {p.stack.length > 0 && <p class="stack meta">{p.stack.join(" · ")}</p>}
+      {
+        (p.live || p.code) && (
+          <p class="links meta">
+            {p.live && (
+              <a href={p.live}>
+                Visit<span aria-hidden="true"> ↗</span>
+                <span class="visually-hidden"> {p.title}</span>
+              </a>
+            )}
+            {p.code && (
+              <a href={p.code}>
+                Code<span aria-hidden="true"> ↗</span>
+                <span class="visually-hidden"> for {p.title}</span>
+              </a>
+            )}
+          </p>
+        )
+      }
+    </div>
+  </article>
+</li>
+
+<style>
+  .card {
+    position: relative;
+    list-style: none;
+  }
+
+  .card[hidden] {
+    display: none;
+  }
+
+  @media (min-width: 52rem) {
+    .wide {
+      grid-column: span 2;
+    }
+  }
+
+  article {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    height: 100%;
+    padding: var(--space-m);
+    border: 1.5px solid color-mix(in oklch, var(--k) 28%, var(--rule));
+    border-radius: var(--radius-l);
+    background:
+      radial-gradient(120% 90% at 100% 0%, var(--wash), transparent 70%),
+      var(--paper-raised);
+    box-shadow: 0 1px 0 color-mix(in oklch, var(--k) 25%, transparent);
+    transition:
+      transform 420ms var(--ease-spring),
+      box-shadow 420ms var(--ease-out),
+      border-color 200ms;
+  }
+
+  .card:hover article,
+  .card:focus-within article {
+    transform: translateY(-5px) rotate(var(--tilt));
+    border-color: var(--k);
+    box-shadow:
+      0 1px 0 var(--k),
+      0 18px 32px -18px color-mix(in oklch, var(--k) 55%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card {
+      animation: rise 700ms var(--ease-out) both;
+      animation-delay: calc(min(var(--i), 12) * 45ms);
+    }
+
+    .card:hover :global(.glyph),
+    .card:focus-within :global(.glyph) {
+      animation: spin 9s linear infinite;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  @keyframes spin {
+    to {
+      rotate: 1turn;
+    }
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  .pill {
+    padding: 0.15em 0.65em;
+    border-radius: 999px;
+    background: var(--wash);
+    color: var(--k);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .card :global(.glyph) {
+    margin-block: var(--space-xs) var(--space-s);
+  }
+
+  .title {
+    font-size: var(--step-1);
+    font-weight: 600;
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+  }
+
+  .wide .title {
+    font-size: var(--step-2);
+  }
+
+  .card-link {
+    text-decoration: none;
+  }
+
+  /* The whole card is the title link; the Visit/Code links sit above it. */
+  .card-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-l);
+  }
+
+  .card-link:focus-visible {
+    outline: none;
+  }
+
+  .card-link:focus-visible::after {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .card-link:hover {
+    color: inherit;
+  }
+
+  .summary {
+    color: color-mix(in oklch, var(--ink) 88%, var(--paper));
+    line-height: 1.5;
+  }
+
+  .wide .summary {
+    font-size: var(--step-1);
+    max-width: 34em;
+  }
+
+  .status,
+  .todo-note {
+    font-size: var(--step--2);
+  }
+
+  .todo-note {
+    color: var(--todo);
+  }
+
+  .foot {
+    display: grid;
+    gap: var(--space-2xs);
+    margin-top: auto;
+    padding-top: var(--space-s);
+  }
+
+  .topics {
+    color: var(--k);
+    font-style: italic;
+    font-size: var(--step--1);
+  }
+
+  .stack {
+    font-size: var(--step--2);
+  }
+
+  .links {
+    display: flex;
+    gap: var(--space-s);
+    margin-top: var(--space-2xs);
+  }
+
+  .links a {
+    position: relative;
+    z-index: 1;
+    font-weight: 600;
+    color: var(--k);
+    text-decoration-color: color-mix(in oklch, var(--k) 45%, transparent);
+  }
+
+  .links a:hover {
+    text-decoration-color: currentColor;
+  }
+</style>

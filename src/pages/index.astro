@@ -1,132 +1,57 @@
 ---
-import ContactList from "../components/ContactList.astro";
-import NoteList from "../components/NoteList.astro";
-import ProjectList from "../components/ProjectList.astro";
-import Section from "../components/Section.astro";
+import ProjectIndex from "../components/ProjectIndex.astro";
+import SpringyText from "../components/SpringyText.astro";
+import Ticker from "../components/Ticker.astro";
 import { projects } from "../data/projects";
-import { career, contact } from "../data/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getNotes } from "../lib/notes";
+import { withBase } from "../lib/url";
 
-const notes = await getNotes();
+const topics = [...new Set(projects.flatMap((p) => p.topics))];
+const years = projects.flatMap((p) => (p.year ? [p.year] : []));
+const span = `${Math.min(...years)}–${Math.max(...years)}`;
 ---
 
 <BaseLayout>
   <section class="hero" aria-labelledby="hero-heading">
-    <h1 id="hero-heading">
-      I'm Stephanie. I build software with the people who'll use it.
-    </h1>
+    <p class="eyebrow">Software engineer · {projects.length} projects, {span}</p>
+    <h1 id="hero-heading"><SpringyText text="Hi, I'm Stephanie." /></h1>
     <p class="lede">
-      I'm a self-taught engineer. I worked on the Core Product team at Notion and on Prime Gaming at Amazon, and before
-      any of that I was an actuary. Now I'm looking for a senior forward-deployed, applied AI, or product
-      engineering role at a company building with AI.
+      I build small websites to figure things out: why a spinning ping pong ball curves, what a nanosecond means for a
+      system, which Latin roots hide inside English words. Here are some of them.
     </p>
-    <p class="meta">
-      <a href="#contact">Get in touch</a>
-    </p>
+    <p class="meta"><a href={withBase("about/")}>More about me →</a></p>
   </section>
 
-  <Section id="about" title="About">
-    <div class="prose">
-      <p>
-        I started in finance, as an actuary at Kaiser Permanente and then as a quantitative analyst at Capital Group.
-        The work was rigorous and taught me a lot, but I kept wanting to build things, not just model them. So I taught
-        myself to code. About a year in, I built a productivity app in four days, and it grew to more than 200,000
-        users.
-      </p>
-      <p>
-        Since then I've built software at Amazon and Notion. Being self-taught shows up in how I work: I'm comfortable
-        not knowing something yet, I learn fastest by shipping, and I pay close attention to whether a tool actually
-        helps the person using it.
-      </p>
-      <p>
-        I use a simple test for technology. It should serve a good purpose, and the person using it should come away
-        better for it. That's why AI interests me. It's the biggest change in what software can do that I've seen, and
-        most of the work now is fitting it to real people's problems. I want to do that work: sit with customers, find
-        the actual problem, and ship something that works where they work.
-      </p>
-    </div>
+  <Ticker label="Curious about" items={topics} />
 
-    <h3 class="subhead">Where I've worked</h3>
-    <ul class="career" role="list">
-      {
-        career.map((item) => (
-          <li>
-            <span class="org">{item.org}</span>
-            <span class="meta">{item.role}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </Section>
-
-  <Section id="projects" title="Projects">
-    <ProjectList projects={projects} />
-  </Section>
-
-  <Section id="writing" title="Writing">
-    <NoteList notes={notes} />
-  </Section>
-
-  <Section id="contact" title="Contact">
-    <p class="contact-lede">
-      If you're hiring for forward-deployed, applied AI, or product engineering work, or you just want to compare notes,
-      I'd like to hear from you. Email is best.
-    </p>
-    <ContactList links={contact} />
-  </Section>
+  <section class="projects" aria-labelledby="projects-heading">
+    <h2 id="projects-heading" class="visually-hidden">Projects</h2>
+    <ProjectIndex projects={projects} />
+  </section>
 </BaseLayout>
 
 <style>
   .hero {
     display: grid;
     gap: var(--space-m);
-    max-width: 46rem;
-    padding-block: var(--space-xl) 0;
+    padding-block: var(--space-xl) var(--space-l);
   }
 
-  .hero h1 {
-    font-size: var(--step-3);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
+  h1 {
+    font-size: var(--step-4);
+    font-weight: 520;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
   }
 
   .lede {
-    max-width: var(--measure);
+    max-width: 34em;
     font-size: var(--step-1);
-    line-height: 1.5;
-    color: var(--ink-muted);
+    line-height: 1.45;
+    color: color-mix(in oklch, var(--ink) 82%, var(--paper));
   }
 
-  .subhead {
-    margin-top: var(--space-l);
-    margin-bottom: var(--space-s);
-    font-size: var(--step-0);
-  }
-
-  .career {
-    display: grid;
-    gap: var(--space-xs);
-    padding: 0;
-    list-style: none;
-  }
-
-  .career li {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 var(--space-s);
-    padding-bottom: var(--space-xs);
-    border-bottom: 1px solid var(--rule);
-  }
-
-  .org {
-    min-width: 10rem;
-    font-weight: 600;
-  }
-
-  .contact-lede {
-    margin-bottom: var(--space-m);
+  .projects {
+    padding-top: var(--space-l);
   }
 </style>

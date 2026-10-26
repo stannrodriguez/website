@@ -1,0 +1,171 @@
+---
+/**
+ * The project grid plus kind filters. Without JS every project shows and the
+ * filters stay hidden. With JS, filtering animates through the View
+ * Transitions API where available and is mirrored in ?kind= so it can be linked.
+ */
+import { kinds, type Kind, type Project } from "../data/projects";
+import ProjectCard from "./ProjectCard.astro";
+
+interface Props {
+  projects: Project[];
+  /** How many projects at the top get the large card. */
+  featured?: number;
+}
+
+const { projects, featured = 2 } = Astro.props;
+const counts = new Map<Kind, number>();
+for (const p of projects) counts.set(p.kind, (counts.get(p.kind) ?? 0) + 1);
+const present = (Object.keys(kinds) as Kind[]).filter((k) => counts.has(k));
+const allBlurb = "All of it. Filter by what you'd do with each one.";
+---
+
+<div class="index" data-project-index>
+  <div class="filters" role="group" aria-label="Filter projects" hidden>
+    <button type="button" class="chip" data-filter="all" aria-pressed="true" data-blurb={allBlurb}>
+      All <span class="count">{projects.length}</span>
+    </button>
+    {
+      present.map((k) => (
+        <button type="button" class={`chip kind-${k}`} data-filter={k} aria-pressed="false" data-blurb={kinds[k].blurb}>
+          <span class="dot" aria-hidden="true" />
+          {kinds[k].label} <span class="count">{counts.get(k)}</span>
+        </button>
+      ))
+    }
+    <p class="blurb meta" aria-live="polite" data-blurb-out>{allBlurb}</p>
+  </div>
+
+  <ol class="grid" role="list">
+    {projects.map((p, i) => <ProjectCard project={p} number={i + 1} wide={i < featured} />)}
+  </ol>
+</div>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>("[data-project-index]")) {
+    const filters = root.querySelector<HTMLElement>(".filters");
+    const out = root.querySelector<HTMLElement>("[data-blurb-out]");
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+    const cards = [...root.querySelectorAll<HTMLElement>(".card")];
+    if (!filters || !out) continue;
+
+    const known = new Set(buttons.map((b) => b.dataset["filter"]));
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const apply = (kind: string) => {
+      for (const card of cards) card.hidden = kind !== "all" && card.dataset["kind"] !== kind;
+      for (const b of buttons) {
+        const on = b.dataset["filter"] === kind;
+        b.setAttribute("aria-pressed", String(on));
+        if (on) out.textContent = b.dataset["blurb"] ?? "";
+      }
+    };
+
+    const select = (kind: string) => {
+      const url = new URL(location.href);
+      if (kind === "all") url.searchParams.delete("kind");
+      else url.searchParams.set("kind", kind);
+      history.replaceState(null, "", url);
+
+      // Cards stop their entrance animation once someone starts filtering.
+      root.classList.add("settled");
+      if (document.startViewTransition && !reduced.matches) document.startViewTransition(() => apply(kind));
+      else apply(kind);
+    };
+
+    const initial = new URL(location.href).searchParams.get("kind");
+    if (initial && known.has(initial)) {
+      root.classList.add("settled");
+      apply(initial);
+    }
+
+    for (const b of buttons) b.addEventListener("click", () => select(b.dataset["filter"] ?? "all"));
+    filters.hidden = false;
+  }
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-m);
+  }
+
+  .filters[hidden] {
+    display: none;
+  }
+
+  .chip:not([class*="kind-"]) {
+    --k: var(--ink);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.4em 0.9em;
+    border: 1.5px solid var(--rule);
+    border-radius: 999px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font: 500 var(--step--1) / 1.2 var(--font-mono);
+    cursor: pointer;
+    transition:
+      transform 300ms var(--ease-spring),
+      border-color 160ms,
+      background-color 160ms;
+  }
+
+  .chip:hover {
+    border-color: var(--k);
+    transform: translateY(-2px);
+  }
+
+  .chip:active {
+    transform: translateY(0) scale(0.96);
+  }
+
+  .chip[aria-pressed="true"] {
+    border-color: var(--k);
+    background: var(--k);
+    color: var(--paper);
+  }
+
+  .dot {
+    width: 0.6em;
+    height: 0.6em;
+    border-radius: 50%;
+    background: var(--k);
+    transition: background-color 160ms;
+  }
+
+  .chip[aria-pressed="true"] .dot {
+    background: var(--paper);
+  }
+
+  .count {
+    opacity: 0.6;
+    font-size: 0.85em;
+  }
+
+  .blurb {
+    flex-basis: 100%;
+    margin-top: var(--space-2xs);
+    font-style: italic;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    /* Let small cards fill the gaps beside the wide ones. */
+    grid-auto-flow: dense;
+    gap: var(--space-m);
+    padding: 0;
+  }
+
+  .settled :global(.card) {
+    animation: none;
+  }
+</style>
