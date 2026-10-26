@@ -47,14 +47,15 @@ export const contact: ContactLink[] = [
 export interface Role {
   org: string;
   role: string;
+  dates: string;
 }
 
-/** Most recent first. Dates intentionally omitted until confirmed. */
+/** Most recent first. Dates from the résumé. */
 export const career: Role[] = [
-  { org: "Assembled", role: "Software Engineer, AI Agents" },
-  { org: "Recurse Center", role: "Participant" },
-  { org: "Notion", role: "Software Engineer, Core Product" },
-  { org: "Amazon", role: "Software Development Engineer, Prime Gaming" },
-  { org: "Sonder Social", role: "Full Stack Software Engineer" },
-  { org: "Capital Group", role: "Risk and Quantitative Analyst" },
+  { org: "Assembled", role: "Software Engineer, AI Agents", dates: "2025–2026" },
+  { org: "Recurse Center", role: "Participant", dates: "2024" },
+  { org: "Notion", role: "Software Engineer, Core Product", dates: "2022–2024" },
+  { org: "Amazon", role: "Software Development Engineer, Prime Gaming", dates: "2021–2022" },
+  { org: "Sonder Social", role: "Full Stack Software Engineer", dates: "2020–2021" },
+  { org: "Capital Group", role: "Risk and Quantitative Analyst", dates: "2018–2020" },
 ];
