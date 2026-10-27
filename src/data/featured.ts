@@ -31,7 +31,7 @@ export const featured: Featured[] = [
   {
     slug: "assembled-ai-agents",
     org: "Assembled",
-    role: "Software Engineer, AI Agents · San Francisco",
+    role: "Software Engineer, AI Agents",
     title: "Assembled",
     hook: "Built the chat agent for AI customer support.",
     logo: "logos/assembled.png",
@@ -70,9 +70,9 @@ export const featured: Featured[] = [
     slug: "prime-gaming",
     org: "Amazon",
     role: "Software Development Engineer",
-    title: "Prime Gaming",
+    title: "Amazon",
     hook: "Led the redesign of gaming.amazon.com and built tools for localization, country launches, and A/B testing.",
     logo: "logos/primegaming.ico",
-    links: [{ label: "Prime Gaming", href: "https://luna.amazon.com/claims/home?g=s" }],
+    links: [{ label: "Prime Gaming (now Luna)", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
 ];
