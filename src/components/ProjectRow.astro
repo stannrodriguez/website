@@ -17,10 +17,15 @@ const href = p.live ?? p.code;
       <span class="muted"> · {p.summary}</span>
       {p.todo && <span class="todo">TODO</span>}
     </p>
-    {p.status && <p class="muted small">{p.status}</p>}
     {p.todo && <p class="muted small">{p.todo}</p>}
   </div>
-  {p.year && <span class="row-date">{p.year}</span>}
+  {(p.year || p.status) && (
+    <span class="row-date">
+      {p.year}
+      {p.year && p.status && " · "}
+      {p.status}
+    </span>
+  )}
 </li>
 
 <style>
