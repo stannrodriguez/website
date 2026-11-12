@@ -36,7 +36,7 @@ export const projects: Project[] = [
     year: 2026,
     live: "https://nanosecond-henna.vercel.app",
     code: gh("nanosecond"),
-    status: "pre-alpha, built mostly with Claude Code",
+    status: "in progress",
   },
   {
     slug: "spin",
@@ -140,30 +140,11 @@ export const projects: Project[] = [
   {
     slug: "browser",
     title: "A web browser",
-    summary: "A web browser I built from scratch, following browser.engineering.",
+    summary: "Built from scratch, following browser.engineering.",
     topics: ["browsers", "the web"],
     stack: ["Python"],
     year: 2024,
     code: gh("browser_eng"),
-  },
-  {
-    slug: "simple-ann",
-    title: "A neural network in R",
-    summary: "A simple neural network I wrote from scratch in R.",
-    topics: ["machine learning"],
-    stack: ["R"],
-    year: 2018,
-    code: gh("simple-ann"),
-  },
-  {
-    slug: "neopom",
-    title: "Neopom",
-    summary:
-      "A motivational productivity app with 200,000 users across 32 countries. I built it end to end: development, UX/UI, marketing, and analytics.",
-    topics: ["productivity"],
-    stack: ["React", "Firebase"],
-    year: undefined,
-    live: "https://neopom.net",
   },
   {
     slug: "loan-app",
@@ -182,5 +163,24 @@ export const projects: Project[] = [
     stack: ["Python", "Jupyter"],
     year: 2020,
     code: gh("PotatoDetector"),
+  },
+  {
+    slug: "simple-ann",
+    title: "A neural network in R",
+    summary: "Written from scratch.",
+    topics: ["machine learning"],
+    stack: ["R"],
+    year: 2018,
+    code: gh("simple-ann"),
+  },
+  {
+    slug: "neopom",
+    title: "Neopom",
+    summary:
+      "A motivational productivity app with 200,000 users across 32 countries. I built it end to end: development, UX/UI, marketing, and analytics.",
+    topics: ["productivity"],
+    stack: ["React", "Firebase"],
+    year: undefined,
+    live: "https://neopom.net",
   },
 ];
