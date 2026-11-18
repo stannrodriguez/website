@@ -20,6 +20,9 @@ export interface Featured {
   title: string;
   /** One short, plain sentence. */
   hook: string;
+  /** The company or product site; the title links here. */
+  href: string;
+  /** Not rendered; kept for reference. */
   links: Link[];
   /** Favicon in public/logos/, shown at 16px before the title. */
   logo?: string;
@@ -35,6 +38,7 @@ export const featured: Featured[] = [
     title: "Assembled",
     hook: "Built the chat agent for AI customer support.",
     logo: "logos/assembled.png",
+    href: "https://www.assembled.com",
     links: [{ label: "assembled.com", href: "https://www.assembled.com" }],
   },
   {
@@ -44,6 +48,7 @@ export const featured: Featured[] = [
     title: "Notion",
     hook: "Built workspace and collaboration features, like the sidebar, sharing, and permissions.",
     logo: "logos/notion.ico",
+    href: "https://www.notion.com",
     links: [
       { label: "Sidebar", href: "https://www.notion.com/help/navigate-with-the-sidebar" },
       { label: "Teamspaces", href: "https://www.notion.com/help/guides/teamspaces-give-teams-home-for-important-work" },
@@ -64,6 +69,7 @@ export const featured: Featured[] = [
       { label: "TikTok", href: "https://www.tiktok.com/@meganomnom_/video/7008039251807915290" },
     ],
     logo: "logos/neopom.ico",
+    href: "https://neopom.net",
     project: "neopom",
   },
   {
@@ -73,6 +79,7 @@ export const featured: Featured[] = [
     title: "Prime Gaming",
     hook: "Led the redesign of gaming.amazon.com and built tools for localization, country launches, and A/B testing.",
     logo: "logos/primegaming.ico",
+    href: "https://luna.amazon.com/claims/home?g=s",
     links: [{ label: "Prime Gaming", href: "https://luna.amazon.com/claims/home?g=s" }],
   },
 ];

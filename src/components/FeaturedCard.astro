@@ -1,5 +1,5 @@
 ---
-/** One featured item on the home page: logo, name, role, one sentence, and links. */
+/** One featured item on the home page: logo and linked name, then one sentence. */
 import type { Featured } from "../data/featured";
 import { withBase } from "../lib/url";
 
@@ -8,35 +8,18 @@ interface Props {
 }
 
 const { item: f } = Astro.props;
-/** The org only shows when the title doesn't already say it. */
-const meta = f.org === f.title ? f.role : `${f.org} · ${f.role}`;
 ---
 
 <li class="feat">
   <h3>
     {f.logo && <img class="logo" src={withBase(f.logo)} alt="" width="16" height="16" />}
-    {f.title}
+    <a href={f.href}>{f.title}</a>
   </h3>
-  <p class="muted small">{meta}</p>
   <p>{f.hook}</p>
-  <p class="small">
-    {
-      f.links.map((l, i) => (
-        <>
-          {i > 0 && <span class="muted"> · </span>}
-          <a href={l.href}>{l.label}</a>
-        </>
-      ))
-    }
-  </p>
 </li>
 
 <style>
   /* The logo hangs in the left margin so the text stays on the shared edge. */
-  .feat {
-    position: relative;
-  }
-
   .feat .logo {
     display: inline-block;
     width: 16px;
@@ -56,9 +39,5 @@ const meta = f.org === f.title ? f.role : `${f.org} · ${f.role}`;
   h3 {
     font-weight: 500;
     line-height: inherit;
-  }
-
-  .small {
-    font-size: var(--step--1);
   }
 </style>
