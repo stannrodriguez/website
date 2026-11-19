@@ -32,19 +32,12 @@ const href = p.live ?? p.code;
     background-color: color-mix(in srgb, var(--ink) 4%, transparent);
   }
 
-  .row-text {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
   @media (max-width: 639.98px) {
     .row-text {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       line-clamp: 2;
-      white-space: normal;
     }
   }
 </style>
