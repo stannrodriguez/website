@@ -19,7 +19,7 @@ const pageTitle = title ? `${title} · ${site.name}` : site.title;
 const pathname = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const canonical = new URL(pathname, Astro.site);
 const ogImage = new URL(withBase("og-card.png"), Astro.site);
-const ogImageAlt = "Stephanie Rodriguez, with the site's six-circle mark on cream.";
+const ogImageAlt = 'Light-themed card on a cream background showing a six-circle constellation mark and the name "Stephanie Rodriguez" in plain system type.';
 ---
 
 <!doctype html>
