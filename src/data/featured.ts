@@ -46,7 +46,7 @@ export const featured: Featured[] = [
     org: "Notion",
     role: "Software Engineer, Core Product",
     title: "Notion",
-    hook: "Built workspace and collaboration features, like the sidebar, sharing, and permissions.",
+    hook: "Built workspace and collaboration features, including the sidebar, sharing, and permissions.",
     logo: "logos/notion.ico",
     href: "https://www.notion.com",
     links: [

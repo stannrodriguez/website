@@ -13,7 +13,7 @@ const { links } = Astro.props;
     links.map((link) => (
       <li>
         <span class="muted">{link.label}</span>{" "}
-        {link.href ? <a href={link.href}>{link.handle ?? link.href}</a> : <span class="muted">not added yet</span>}
+        {link.href ? <a href={link.href}>{link.handle ?? link.href}</a> : <span class="muted">not available</span>}
         {link.todo && (
           <>
             {" "}
