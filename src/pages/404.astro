@@ -3,9 +3,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { withBase } from "../lib/url";
 ---
 
-<BaseLayout title="Not found" noindex>
-  <h1>Nothing here.</h1>
-  <p>It may have moved when I rebuilt the site. <a href={withBase()}>Back home</a>.</p>
+<BaseLayout title="Page not found" description="This page could not be found." noindex>
+  <h1>Page not found</h1>
+  <p>This page doesn't exist, or it may have moved. <a href={withBase()}>Go to the home page</a>.</p>
 </BaseLayout>
 
 <style>

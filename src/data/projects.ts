@@ -30,7 +30,7 @@ export const projects: Project[] = [
   {
     slug: "nanosecond",
     title: "Nanosecond",
-    summary: "A game to help build intuition for systems design, starting from physics.",
+    summary: "Systems design intuition game, starting from physics.",
     topics: ["systems design", "latency", "queueing"],
     stack: ["React", "TypeScript", "Zustand", "Playwright"],
     year: 2026,
@@ -51,7 +51,7 @@ export const projects: Project[] = [
   {
     slug: "aplysium",
     title: "Twenty things we figured out about the mind",
-    summary: "Neuroscience findings that held up when people tried to replicate them.",
+    summary: "Neuroscience findings that held up to replication.",
     topics: ["neuroscience", "psychology"],
     stack: ["Astro", "TypeScript", "custom elements"],
     year: 2026,
@@ -71,7 +71,7 @@ export const projects: Project[] = [
   {
     slug: "radix",
     title: "Radix",
-    summary: "A way to learn Latin roots by taking words apart and putting them back together.",
+    summary: "Learn Latin roots by taking words apart and rebuilding them.",
     topics: ["etymology", "spaced repetition"],
     stack: ["HTML", "CSS", "JavaScript"],
     year: 2026,
@@ -81,7 +81,7 @@ export const projects: Project[] = [
   {
     slug: "emotion-atlas",
     title: "Emotion Atlas",
-    summary: "An emotion wheel with six main feelings and 63 more specific ones.",
+    summary: "Wheel of 6 main feelings and 63 specific ones.",
     topics: ["emotions", "language"],
     stack: ["JavaScript", "SVG", "Playwright"],
     year: 2026,
@@ -111,7 +111,7 @@ export const projects: Project[] = [
   {
     slug: "laws-and-adages",
     title: "Laws & Adages",
-    summary: "Twenty laws named after people, like Goodhart's law, as flip cards.",
+    summary: "Flip cards for 20 laws named after people, like Goodhart's law.",
     topics: ["ideas", "mental models"],
     stack: ["Node", "zero dependencies"],
     year: 2026,
@@ -121,7 +121,7 @@ export const projects: Project[] = [
   {
     slug: "reach",
     title: "Reach",
-    summary: "Mobility and strength routines. You can pick 3, 5, 15, or 28 minutes.",
+    summary: "Mobility and strength routines in 3, 5, 15, or 28 minutes.",
     topics: ["mobility", "fitness"],
     stack: ["HTML", "JavaScript"],
     year: 2026,
@@ -131,7 +131,7 @@ export const projects: Project[] = [
   {
     slug: "sound-physics",
     title: "Sound Physics Visualizer",
-    summary: "Six visualizations of how sound works, from sine waves to the Fourier transform.",
+    summary: "Six visualizations, from sine waves to the Fourier transform.",
     topics: ["sound", "signal processing"],
     stack: ["React", "Vite"],
     year: 2024,
@@ -140,7 +140,7 @@ export const projects: Project[] = [
   {
     slug: "browser",
     title: "A web browser",
-    summary: "A web browser I built from scratch, following browser.engineering.",
+    summary: "Built from scratch following browser.engineering.",
     topics: ["browsers", "the web"],
     stack: ["Python"],
     year: 2024,
@@ -149,7 +149,7 @@ export const projects: Project[] = [
   {
     slug: "simple-ann",
     title: "A neural network in R",
-    summary: "A simple neural network I wrote from scratch in R.",
+    summary: "Simple implementation written from scratch.",
     topics: ["machine learning"],
     stack: ["R"],
     year: 2018,

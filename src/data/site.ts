@@ -13,10 +13,10 @@ export interface ContactLink {
 
 export const site = {
   name: "Stephanie Rodriguez",
-  title: "Stephanie Rodriguez",
+  title: "Stephanie Rodriguez · Software engineer",
   role: "Software engineer",
   description:
-    "Software engineer, most recently building AI agents at Assembled. I make small websites about systems, physics, the mind, myth, and language.",
+    "Software engineer, most recently building AI agents at Assembled. Small websites and tools on systems, physics, the mind, myth, and language.",
   lang: "en",
 } as const;
 
